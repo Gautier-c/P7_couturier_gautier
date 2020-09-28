@@ -4,8 +4,11 @@ const bodyparser = require('body-parser');
 const userRoutes = require('./routes/user');
 const app = express();
 
-const createTable = "CREATE TABLE IF NOT EXISTS customers (id VARCHAR(255), email VARCHAR(255), password VARCHAR(255), name VARCHAR(255), firstname VARCHAR(255), PRIMARY KEY (id))";
-module.exports = createTable;
+const createTableCustomers = "CREATE TABLE IF NOT EXISTS customers (id VARCHAR(255), email VARCHAR(255), password VARCHAR(255), name VARCHAR(255), firstname VARCHAR(255), PRIMARY KEY (id))";
+module.exports = createTableCustomers;
+
+const createTableMessages = "CREATE TABLE IF NOT EXISTS messages (userId VARCHER(255), messages VARCHAR(255), likes VARCHAR(255), dislikes VARCHAR(255), usersLiked VARCHAR(255), usersDisliked VARCHAR(255), PRIMARY KEY (userID))";
+module.exports = createTableMessages;
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
