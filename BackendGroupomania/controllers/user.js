@@ -18,9 +18,9 @@ exports.login = (req, res, next) => {
         connect.query('SELECT * FROM customers WHERE email= ?', emailUser,
         function (error, results,){
             if (!valid){
-                res.status(401).json({ error : 'Utilisateur ou mot de passe incorrect'});
+                res.status(401).json({ message : 'Utilisateur ou mot de passe incorrect.'});
             } else {
-                //code pour le rol admin ou user normal
+                //code pour le role admin ou user normal
             }
         })
     } else {
@@ -28,6 +28,12 @@ exports.login = (req, res, next) => {
     }
 };
 
-// exports.delete = (req, res, next) => {
-
-// };
+exports.delete = (req, res, next) => {
+    connect.query('DELETE FROM customers WHERE idUSERS=${req.params.id}',req.params.id,
+    function (error, results){
+        if (error){
+            return res.status(400).json({ error });
+        }
+        return res.status(200).json({ message : 'Compte supprimé.'})
+    })
+};
