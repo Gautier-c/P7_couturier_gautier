@@ -35,5 +35,15 @@ exports.deleteAnswer = (req, res, next) => {
 };
 
 exports.likeMessages = (req, res, next) => {
+    const userLike = req.body;
+    connect.query('INSERT INTO likes SET ?', userLike, function(error,results){
+        if (error){
+            return res.status(400).json({ error })
+        }
+        return res.status(201).json({ message : 'Publication liké.'})
+    })
+};
+
+exports.removeLike = (req, res, next) => {
 
 };
