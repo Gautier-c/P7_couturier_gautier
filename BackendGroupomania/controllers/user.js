@@ -12,7 +12,20 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-
+    const emailUser = req.body.email;
+    const passwordUser = req.body.password;
+    if (emailUser && passwordUser){
+        connect.query('SELECT * FROM customers WHERE email= ?', emailUser,
+        function (error, results,){
+            if (!valid){
+                res.status(401).json({ error : 'Utilisateur ou mot de passe incorrect'});
+            } else {
+                //code pour le rol admin ou user normal
+            }
+        })
+    } else {
+        res.status(500).json({ error });
+    }
 };
 
 // exports.delete = (req, res, next) => {
