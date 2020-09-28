@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const connect = require('../mysqlDbConnect');
 
 exports.signup = (req, res, next) => {  
 
