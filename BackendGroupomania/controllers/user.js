@@ -29,7 +29,7 @@ exports.login = (req, res, next) => {
 };
 
 exports.delete = (req, res, next) => {
-    connect.query('DELETE FROM customers WHERE idUSERS=${req.params.id}',req.params.id,
+    connect.query(`DELETE FROM customers WHERE idUSERS=${req.params.id}`,req.params.id,
     function (error, results){
         if (error){
             return res.status(400).json({ error });
