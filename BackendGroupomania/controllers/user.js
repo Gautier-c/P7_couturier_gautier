@@ -12,8 +12,8 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(user.password, 10)
     .then(hash =>{ 
         user.password = hash;
-        connect.query('SELECT * FROM users WHERE email= ?', user.email, function(error, result){        //Verification si email existe deja
-            if (err) throw err;
+        connect.query('SELECT * FROM users WHERE email="'+user.email+'"', function(error, result){        //Verification si email existe deja
+            if (error) throw error;
             if (result.length > 0){
                 return res.status(500).json({ message : "Adresse mail déjà utilisée."})
             } else {
