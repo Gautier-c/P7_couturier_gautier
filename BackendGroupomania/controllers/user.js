@@ -31,15 +31,34 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     const userEmail = req.body.email;
-    const userPassword =
-    connect.query('SELECT * FROM users WHERE email= ?', userEmail, function(error, result){          //Verification si l'email existe dans la BDD
-        if (err) throw err;
-        if (result.length <= 0){
-            return res.status(500).json({ message : "Utilisateur inconnu."})
-        } else {
-            bcrypt
-        }
-    })
+    const userPassword = req.body.password;
+    if (userEmail && userPassword){
+        connect.query('SELECT * FROM users WHERE email="'+userEmail+'"', function(err, result){          //Verification si l'email existe dans la BDD
+            if (err) throw err;
+            if (result.length <= 0){
+                return res.status(500).json({ message : "Utilisateur inconnu."})
+            } else {
+                bcrypt.compare(userPassword, result[0].password)
+                .then(valid => {
+                    if(!valid) {
+                        return res.status(500).json({ message : "Mot de passe incorrect"})
+                    }
+                    return res.status(200).json({
+                        token: jwt.sign(
+                            { userId: result[0].id},
+                            'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO',
+                            { expiresIn: '24h'}
+                        )
+                    })
+                })
+                .catch(() => {
+                    return res.status(500).json({ error })
+                })
+            }
+        })
+    } else {
+        return res.status(500).json({ message : "Veuillez entrer un email et un mot de passe." });
+    }
 };
 
 exports.delete = (req, res, next) => {
