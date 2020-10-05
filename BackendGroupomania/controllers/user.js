@@ -1,5 +1,6 @@
 const connect = require('../mysqlDbConnect');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 exports.signup = (req, res, next) => {
     const user = {
@@ -7,40 +8,48 @@ exports.signup = (req, res, next) => {
         firstname : req.body.firstname,
         email : req.body.email,
         password : req.body.password
-        }
-        connect.query('INSERT INTO users SET ?', user, function (error, result) {
-            if (error) {
-                console.log(error);
-                return res.status(400).json({ error })
-            };
-            return res.status(201).json ({ message : 'Utilisateur créé.'})
-        });
+    }
+    bcrypt.hash(user.password, 10)
+    .then(hash =>{ 
+        user.password = hash;
+        connect.query('SELECT * FROM users WHERE email= ?', user.email, function(error, result){        //Verification si email existe deja
+            if (err) throw err;
+            if (result.length > 0){
+                return res.status(500).json({ message : "Adresse mail déjà utilisée."})
+            } else {
+                connect.query('INSERT INTO users SET ?', user, function (error, result){                //Inscription de l'utilisateur
+                    if (error) {
+                        console.log(error);
+                        return res.status(400).json({ error })
+                    };
+                    return res.status(201).json({ message : 'Utilisateur créé.'})
+                })
+            }
+        })
+    })
 };  
 
 exports.login = (req, res, next) => {
-    const emailUser = req.body.email;
-    const passwordUser = req.body.password;
-    if (emailUser && passwordUser){
-        connect.query('SELECT * FROM customers WHERE email= ?', emailUser,
-        function (error, results,){
-            if (!valid){
-                res.status(401).json({ message : 'Utilisateur ou mot de passe incorrect.'});
-            } else {
-                //code pour le role admin ou user normal
-            }
-        })
-    } else {
-        res.status(500).json({ error });
-    }
+    const userEmail = req.body.email;
+    const userPassword =
+    connect.query('SELECT * FROM users WHERE email= ?', userEmail, function(error, result){          //Verification si l'email existe dans la BDD
+        if (err) throw err;
+        if (result.length <= 0){
+            return res.status(500).json({ message : "Utilisateur inconnu."})
+        } else {
+            bcrypt
+        }
+    })
 };
 
 exports.delete = (req, res, next) => {
-    connect.query(`DELETE FROM customers WHERE idUSERS=${req.params.id}`,req.params.id,
-    function (error, results){
+    const userId = req.body.userId;
+    connect.query("DELETE FROM users WHERE userId= ?", userId, function(error,result){
         if (error){
-            return res.status(400).json({ error });
+            console.log(error);
+            return res.status(400).json({ error })
         }
-        return res.status(200).json({ message : 'Compte supprimé.'})
+        return res.status(201).json({ message : "Utilisateur supprimé."})
     })
 };
 
