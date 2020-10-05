@@ -1,20 +1,21 @@
 const connect = require('../mysqlDbConnect');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res, next) => {
-    const user = req.body;
-    bcrypt.hash(user.password, 10)
-    .then(hash => {
-        connect.query('INSERT INTO customers', user, function (error, result) {
+    const user = {
+        name : req.body.name,
+        firstname : req.body.firstname,
+        email : req.body.email,
+        password : req.body.password
+        }
+        connect.query('INSERT INTO users SET ?', user, function (error, result) {
             if (error) {
                 console.log(error);
                 return res.status(400).json({ error })
             };
             return res.status(201).json ({ message : 'Utilisateur créé.'})
         });
-    });  
-};
+};  
 
 exports.login = (req, res, next) => {
     const emailUser = req.body.email;
