@@ -61,9 +61,9 @@ exports.login = (req, res, next) => {
     }
 };
 
-exports.delete = (req, res, next) => {
-    const userId = req.body.userId;
-    connect.query("DELETE FROM users WHERE userId= ?", userId, function(error,result){
+exports.deleteUser = (req, res, next) => {
+    const paramsId = req.params.id;
+    connect.query('DELETE FROM users WHERE userId="'+paramsId+'"', function(error,result){
         if (error){
             console.log(error);
             return res.status(400).json({ error })
@@ -71,4 +71,3 @@ exports.delete = (req, res, next) => {
         return res.status(201).json({ message : "Utilisateur supprimé."})
     })
 };
-
