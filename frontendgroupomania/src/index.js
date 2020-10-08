@@ -7,6 +7,7 @@ import ValidatedLoginForm from './LoginForm';
 function App() {
   return (
     <div className="App">
+      <h1>Deja inscrit ? Connectez vous :</h1>
       <ValidatedLoginForm />
     </div>
   );
@@ -14,14 +15,6 @@ function App() {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
-
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <ValidatedLoginForm />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
