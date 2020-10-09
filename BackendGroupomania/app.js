@@ -13,7 +13,7 @@ app.use((req, res, next) => {
     next();
 });
 
-connect.connect(function(er){
+connect.connect(function(e){
     if (err){
         console.log("Erreur de connection à la BDD Groupomania")
     }
