@@ -6,35 +6,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
 } from "react-router-dom";
 
 export default class App extends React.Component {
-
-  state = {
-    email: '',
-    password: '',
-  }
-
-  handleChange = event => {
-    this.setState({ email: event.target.value });
-    this.setState({ password: event.target.value});
-  }
-
-  handleSubmit = event => {
-    event.preventDefault();
-
-    const user = {
-      email: this.state.email,
-      password: this.state.email,
-    };
-
-    axios.post(`https://localhost:3000/api/auth/login`, { user })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-  }
   render() {
     return (
     <Router>
@@ -70,6 +45,12 @@ export default class App extends React.Component {
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, { setSubmitting }) => {
+            axios.post(`http://localhost:3000/api/auth/login`, { values })
+              .then(res => {
+                console.log(res);
+                console.log(res.data);
+              })
+
             setTimeout(() => {
               console.log("Logging in", values);
               setSubmitting(false);
@@ -78,9 +59,9 @@ export default class App extends React.Component {
           validationSchema={Yup.object().shape({
             email: Yup.string()
               .email()
-              .required("Champs requis."),
+              .required("Champ requis."),
             password: Yup.string()
-              .required("Champs requis")
+              .required("Champ requis")
           })}
         >
           
@@ -140,12 +121,19 @@ export default class App extends React.Component {
     };
     
     function Signup() {
+      
       return (
         <div>
           <h2>Remplissez ce formulaire pour vous inscrire :</h2>
           <Formik
-            initialValues={{ email: "", password: "" }}
+            initialValues={{ name: "", firstname: "", email: "", password: "", }}
             onSubmit={(values, { setSubmitting }) => {
+              axios.post(`http://localhost:3000/api/auth/signup`, { values })
+              .then(res => {
+                console.log(res);
+                console.log(res.data);
+              })
+              alert('Vous etes inscrit');
               setTimeout(() => {
                 console.log("Logging in", values);
                 setSubmitting(false);
@@ -153,14 +141,14 @@ export default class App extends React.Component {
             }}
             validationSchema={Yup.object().shape({
               name: Yup.string()
-                .required("Champs requis"),
+                .required("Champ requis"),
               firstname: Yup.string()
-                .required("Champs requis"),
+                .required("Champ requis"),
               email: Yup.string()
                 .email()
-                .required("Champs requis."),
+                .required("Champ requis."),
               password: Yup.string()
-                .required("Champs requis")
+                .required("Champ requis")
                 .min(3, "Le mot de passe trop court - 3 caractéres minimum")
                 .matches(/(?=.*[0-9])/, "Le mot de passe doit contenir au moins un nombre.")
             })}
@@ -252,4 +240,3 @@ export default class App extends React.Component {
     }
   }
 }
-

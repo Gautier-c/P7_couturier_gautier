@@ -9,9 +9,9 @@ exports.signup = (req, res, next) => {
         email : req.body.email,
         password : req.body.password
     }
-    bcrypt.hash(user.password, 10)
-    .then(hash =>{ 
-        user.password = hash;
+    // bcrypt.hash(user.password, 10)
+    // .then(hash => { 
+    //     user.password = hash
         connect.query('SELECT * FROM users WHERE email="'+user.email+'"', function(error, result){        //Verification si email existe deja
             if (error) throw error;
             if (result.length > 0){
@@ -24,16 +24,17 @@ exports.signup = (req, res, next) => {
                     };
                     return res.status(201).json({ message : 'Utilisateur créé.'})
                 })
-            }
+                }
         })
-    })
-};  
+    // })
+}
 
 exports.login = (req, res, next) => {
-    const userEmail = req.body.email;
-    const userPassword = req.body.password;
-    if (userEmail && userPassword){
-        connect.query('SELECT * FROM users WHERE email="'+userEmail+'"', function(err, result){          //Verification si l'email existe dans la BDD
+    const user = {
+        email : req.body.email,
+        password : req.body.password
+    }
+        connect.query('SELECT * FROM users WHERE email="'+user.email+'"', function(err, result){          //Verification si l'email existe dans la BDD
             if (err) throw err;
             if (result.length <= 0){
                 return res.status(500).json({ message : "Utilisateur inconnu."})
@@ -56,9 +57,6 @@ exports.login = (req, res, next) => {
                 })
             }
         })
-    } else {
-        return res.status(500).json({ message : "Veuillez entrer un email et un mot de passe." });
-    }
 };
 
 exports.deleteUser = (req, res, next) => {
