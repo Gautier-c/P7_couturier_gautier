@@ -18,19 +18,12 @@ connect.connect(function(err){
         console.log("Erreur de connection à la BDD Groupomania")
     }
     else {
-        connect.query("CREATE DATABASE IF NOT EXISTS groupomaniaDb", function (err, result){
-            if (err) throw err;
-        });
-        const usersTable = "CREATE TABLE IF NOT EXISTS users (name VARCHAR(255), firstname VARCHAR(255), email VARCHAR(255), password VARCHAR(255))";
-        connect.query(usersTable, function (err, result){
-            if (err) throw err;
-        });
         console.log("Connection BDD Groupomania réussie")
     }
 });
 
 app.use(bodyparser.json());
 // app.use('/api/messages', messagesRoutes);
-app.use('/api/auth', userRoutes);
+app.use('/api/user', userRoutes);
 
 module.exports = app;
