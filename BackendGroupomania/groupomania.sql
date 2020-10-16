@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 15 oct. 2020 à 14:09
+-- Généré le : ven. 16 oct. 2020 à 10:44
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.2.34
 
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `users` (
-  `email` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `firstname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -38,9 +38,12 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`email`, `name`, `firstname`, `password`) VALUES
+INSERT INTO `users` (`name`, `firstname`, `email`, `password`) VALUES
 ('', '', '', ''),
-('emailtest@email.com', 'Bernard', 'Jean Michel', 'mdp123');
+('gautier', 'Gautier', 'test@email.com', 'test123'),
+('Dupont', 'Jean michel', 'test@email.com', '$2b$10$tLWKE/DsW1Pptxx8hxdWaOPXQ3TSyquDHv53upUERitWSw6y9jale'),
+('Dupont', 'jean', 'test@email.com', '$2b$10$WvNg8SWYJO2pzqA1KcSB7OgVtNOcG1HyE.VAPAOGeAR6frqFxqyha'),
+('Dupont', 'jean', 'test@email.com', '$2b$10$ev31FEbcFj2sN2w/EIVyi.oapm0adHlMeHbJ6F9HdOlA2/1Ta.lOS');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

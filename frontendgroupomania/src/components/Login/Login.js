@@ -15,7 +15,6 @@ function Login() {
               console.log(res);
               console.log(res.data);
             })
-
           setTimeout(() => {
             console.log("Logging in", values);
             setSubmitting(false);
@@ -47,7 +46,7 @@ function Login() {
             <input
               id="email"
               name="email"
-              type="text"
+              type="email"
               placeholder="Votre email"
               value={values.email}
               onChange={handleChange}
@@ -83,5 +82,5 @@ function Login() {
       </Formik>
     </div>
     )
-  }
-  export default Login;
+}
+export default Login;

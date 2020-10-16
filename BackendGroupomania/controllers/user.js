@@ -1,6 +1,7 @@
 const conDb = require('../mysqlDbConnect');
 // const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res, next) => {
     const user = req.body.values
@@ -25,35 +26,38 @@ exports.signup = (req, res, next) => {
         });
     })
 }
-// exports.login = (req, res, next) => {
-//     const user = {
-//         email : req.body.email,
-//         password : req.body.password
-//     }
-//         connect.query('SELECT * FROM users WHERE email="'+user.email+'"', function(err, result){          //Verification si l'email existe dans la BDD
-//             if (err) throw err;
-//             if (result.length <= 0){
-//                 return res.status(500).json({ message : "Utilisateur inconnu."})
-//             } else {
-//                 bcrypt.compare(userPassword, result[0].password)
-//                 .then(valid => {
-//                     if(!valid) {
-//                         return res.status(500).json({ message : "Mot de passe incorrect"})
-//                     }
-//                     return res.status(200).json({
-//                         token: jwt.sign(
-//                             { userId: result[0].id},
-//                             'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO',
-//                             { expiresIn: '24h'}
-//                         )
-//                     })
-//                 })
-//                 .catch(() => {
-//                     return res.status(500).json({ error })
-//                 })
-//             }
-//         })
-// };
+exports.login = (req, res, next) => {
+  const user = req.body.values
+  if (user.email && user.password){
+    conDb.query('SELECT * FROM users WHERE email = ?', user.email, function(err, results){
+      if (err){
+        console.log(err)
+        return res.status(400).json("Erreur interne")
+      }
+      if (results.length <= 0){
+        return res.status(500).json({ message: "Email inconnu"})
+      } else {
+        bcrypt.compare(user.password, results[0].password)
+        .then(valid => {
+          if(!valid){
+            return res.status(500).json({ message: "Email ou mot de passe incorrect"});
+          } else {
+            return res.status(200).json({
+              token: jwt.sign(
+                { userId: results[0].id},
+                'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO',
+                { expiresIn : '24h'}
+              )
+            })
+          }
+        })
+        .catch(() => {
+          return res.status(500).json({ message : 'Erreur interne' })
+        })
+      }
+    })
+  }
+}
 
 // exports.deleteUser = (req, res, next) => {
 //     const paramsId = req.params.id;

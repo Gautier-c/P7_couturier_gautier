@@ -4,8 +4,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 
-function SignUp() {
-      
+function SignUp() {     
 	return (
 	  <div>
 		<h2>Remplissez ce formulaire pour vous inscrire :</h2>
