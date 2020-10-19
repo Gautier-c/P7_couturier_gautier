@@ -9,7 +9,7 @@ function SignUp() {
 	  <div>
 		<h2>Remplissez ce formulaire pour vous inscrire :</h2>
 		<Formik
-		  initialValues={{ name: "", firstname: "", email: "", password: "", }}
+		  initialValues={{id: "", name: "", firstname: "", email: "", password: "", role:"normal"}}
 		  onSubmit={(values, { setSubmitting }) => {
 			axios.post(`http://localhost:3000/api/user/signup`, { values })
 			.then(res => {

@@ -5,6 +5,8 @@ const userRoutes = require('./routes/user');
 const connect = require('./mysqlDbConnect');
 const app = express();
 
+const createTable = "CREATE TABLE IF NOT EXISTS users (id INT NOT NULL IDENTITY(10,1) PRIMARY KEY, email VARCHAR(255), name VARCHAR(255), firstname VARCHAR(255), password VARCHAR(255), role VARCHAR(255)";
+module.exports = createTable;
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

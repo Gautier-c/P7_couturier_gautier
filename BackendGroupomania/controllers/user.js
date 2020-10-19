@@ -2,6 +2,7 @@ const conDb = require('../mysqlDbConnect');
 // const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const createTable = require('../app');
 
 exports.signup = (req, res, next) => {
     const user = req.body.values
