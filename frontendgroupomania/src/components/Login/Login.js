@@ -14,8 +14,13 @@ function Login() {
             .then(res => {
               console.log(res);
               console.log(res.data);
-              const id = res.data.user_id
-              window.location = "/myaccount/" + id;
+              const user = {
+                id: res.data.id
+              }
+              window.location = "/myaccount/" + user.id;
+            })
+            .catch(error => {
+              console.log(error.response)
             })
           setTimeout(() => {
             console.log("Logging in", values);

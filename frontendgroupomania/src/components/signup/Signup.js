@@ -16,6 +16,9 @@ function SignUp() {
 			  console.log(res);
 			  console.log(res.data);
 			})
+			.catch(error => {
+				console.log(error.response)
+			})
 			setTimeout(() => {
 			  console.log("Logging in", values);
 			  setSubmitting(false);

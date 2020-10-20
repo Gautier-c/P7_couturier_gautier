@@ -2,31 +2,47 @@ const conDb = require('../mysqlDbConnect');
 // const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const createTable = require('../app');
+const mysql = require('mysql');
 
 exports.signup = (req, res, next) => {
-    const user = req.body.values
-    bcrypt.hash(user.password, 10) 
-    .then((hash) => {
-        user.password = hash;
-        // conDb.query('SELECT * from users WHERE email=?', user.email, (err, result) => {
-        //     if (err) {
-        //         console.log(err)
-        //         return res.status(400).json("Erreur interne")
-        //     }
-        //     if(result.length >= 1) {
-        //         return res.status(500).json({ message: "Adresse mail déjà existante."});
-        //     }
-        // })
-        conDb.query(`INSERT INTO users SET ?`, user, (err, result) => {
-          if (err) {
+    const pool = mysql.createPool({
+      connectionLimit: 10,
+      host: "localhost",
+      user: "root",
+      password: "",
+      database: "groupomania"
+    });
+    pool.getConnection(function (err, connection){
+        if (err){
             console.log(err)
             return res.status(400).json("Erreur interne")
         }
-          return res.status(201).json({message : 'Votre compte a bien été crée !'},)
-        });
-    })
-}
+        const user = req.body.values
+        bcrypt.hash(user.password, 10) 
+        .then((hash) => {
+            user.password = hash;
+            connection.query('SELECT * from users WHERE email=?', user.email, (err, result) => {
+                if (err) {
+                    console.log(err)
+                    return res.status(400).json("Erreur interne")
+                }
+                if(result.length >= 1) {
+                    return res.status(500).json({ message: "Adresse mail déjà existante."});
+                } else {
+                    connection.query(`INSERT INTO users SET ?`, user, (err, result) => {
+                      if (err) {
+                        console.log(err)
+                        return res.status(400).json("Erreur interne")
+                    }
+                      return res.status(201).json({message : 'Votre compte a bien été crée !'},)
+                    });
+                    connection.release();
+                }
+            })
+        }); 
+    }); 
+} 
+
 exports.login = (req, res, next) => {
   const user = req.body.values
   if (user.email && user.password){
@@ -45,10 +61,11 @@ exports.login = (req, res, next) => {
           } else {
             return res.status(200).json({
               token: jwt.sign(
-                { userId: results[0].id},
+                { id: results[0].id},
                 'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO',
                 { expiresIn : '24h'}
-              )
+              ),
+              id: results[0].id
             })
           }
         })
