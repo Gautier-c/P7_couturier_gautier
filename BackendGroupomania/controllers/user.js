@@ -65,7 +65,8 @@ exports.login = (req, res, next) => {
                 'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO',
                 { expiresIn : '24h'}
               ),
-              id: results[0].id
+              id: results[0].id,
+              role: results[0].role
             })
           }
         })

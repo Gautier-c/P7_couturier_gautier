@@ -15,9 +15,11 @@ function Login() {
               console.log(res);
               console.log(res.data);
               const user = {
-                id: res.data.id
+                id: res.data.id,
+                role: res.data.role
               }
-              window.location = "/myaccount/" + user.id;
+              sessionStorage.setItem('user', JSON.stringify(user));
+              window.location = "/wall/"
             })
             .catch(error => {
               console.log(error.response)

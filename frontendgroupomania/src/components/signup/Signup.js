@@ -13,10 +13,10 @@ function SignUp() {
 		  onSubmit={(values, { setSubmitting }) => {
 			axios.post(`http://localhost:3000/api/user/signup`, { values })
 			.then(res => {
-			  console.log(res);
-			  console.log(res.data);
-
-              window.location = "/myaccount/" + values.id;
+				console.log(res);
+				console.log(res.data);
+				alert ('Vous etes maintenant inscris. Vous pouvez vous connecter.')
+				window.location = "/login"
 			})
 			.catch(error => {
 				console.log(error.response)
