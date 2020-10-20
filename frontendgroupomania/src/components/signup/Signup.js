@@ -15,6 +15,8 @@ function SignUp() {
 			.then(res => {
 			  console.log(res);
 			  console.log(res.data);
+
+              window.location = "/myaccount/" + values.id;
 			})
 			.catch(error => {
 				console.log(error.response)

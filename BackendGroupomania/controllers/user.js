@@ -34,7 +34,7 @@ exports.signup = (req, res, next) => {
                         console.log(err)
                         return res.status(400).json("Erreur interne")
                     }
-                      return res.status(201).json({message : 'Votre compte a bien été crée !'},)
+                      return res.status(201).json({message : 'Votre compte a bien été crée !'})
                     });
                     connection.release();
                 }
