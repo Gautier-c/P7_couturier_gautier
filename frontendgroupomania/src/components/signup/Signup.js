@@ -2,11 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { Formik } from "formik";
 import * as Yup from "yup";
-
+import Header from '../Header/Header';
 
 function SignUp() {     
 	return (
 	  <div>
+		<Header />
 		<h2>Remplissez ce formulaire pour vous inscrire :</h2>
 		<Formik
 		  initialValues={{id: "", name: "", firstname: "", email: "", password: "", role:"normal"}}

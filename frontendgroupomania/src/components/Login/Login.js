@@ -2,10 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { Formik } from "formik";
 import * as Yup from "yup";
+import Header from '../Header/Header';
 
 function Login() {
     return (
     <div>
+      <Header />
       <h2>Connectez vous :</h2>
       <Formik
         initialValues={{ email: "", password: "" }}
@@ -15,9 +17,14 @@ function Login() {
               console.log(res);
               console.log(res.data);
               const user = {
-                id: res.data.id,
+                name: res.data.name,
+                firstname: res.data.firstname,
                 role: res.data.role
               }
+              const userId = {
+                id: res.data.id
+              }
+              sessionStorage.setItem('userId', JSON.stringify(userId));
               sessionStorage.setItem('user', JSON.stringify(user));
               window.location = "/wall/"
             })

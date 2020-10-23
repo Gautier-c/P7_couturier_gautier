@@ -1,5 +1,4 @@
 const conDb = require('../mysqlDbConnect');
-// const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const mysql = require('mysql');
@@ -33,8 +32,8 @@ exports.signup = (req, res, next) => {
                       if (err) {
                         console.log(err)
                         return res.status(400).json("Erreur interne")
-                    }
-                      return res.status(201).json({message : 'Votre compte a bien été crée !'})
+                      }
+                    return res.status(201).json({message : 'Votre compte a bien été crée !'})
                     });
                     connection.release();
                 }
@@ -66,6 +65,8 @@ exports.login = (req, res, next) => {
                 { expiresIn : '24h'}
               ),
               id: results[0].id,
+              name: results[0].name,
+              firstname: results[0].firstname,
               role: results[0].role
             })
           }

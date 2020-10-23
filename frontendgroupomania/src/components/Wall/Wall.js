@@ -1,11 +1,18 @@
 import React from 'react';
-import Publish from '../Publish/Publish';
+import NavBar from '../NavBar/NavBar';
+import { NavLink } from "react-router-dom";
+import Publications from '../Publications/Publications';
 
 function Wall (){
     return (
         <div>
-            <h1>Postez des trucs cool</h1>
-            {<Publish />}
+            <h1>Groupomania Wall</h1>
+            {<NavBar />}
+            <p>Truc du mur</p>
+            <NavLink to="/Publish">
+                <p>Publier</p>
+            </NavLink>
+            {<Publications />}
         </div>
     )
 }
