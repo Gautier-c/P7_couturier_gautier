@@ -2,18 +2,18 @@ const conDb = require('../mysqlDbConnect');
 const jwt = require('jsonwebtoken');
 
 exports.getAllMessages = (req, res, next) => {
-    conDb.query('SELECT content FROM publish', (err, result) => {
+    conDb.query('SELECT content FROM publications', (err, result) => {
         if(err) {
             console.log(err);
             return res.status(400).json({ message : "Erreur interne"})
         }
-        return res.status(200).json({ message : "Toutes les publications sont affichées." });
+        return res.status(200).json({ result });
     })
 };
 
 exports.publish = (req, res, next) => {
     const message = req.body.values
-    conDb.query('INSERT INTO publish SET ?', message, (err, result) => {
+    conDb.query('INSERT INTO publications SET ?', message, (err, result) => {
         if (err) {
             console.log(err);
             return res.status(400).json({ message : "Erreur interne"})

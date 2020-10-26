@@ -4,11 +4,25 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 function Publish (){
+    const getAuthor = sessionStorage.getItem('user');
+    const getAuthorNameJson = JSON.parse(getAuthor);
+    const getAuthorName = getAuthorNameJson.name;
+    const getAuthorFirstname =getAuthorNameJson.firstname;
+    const getAuthorId = getAuthorNameJson.id;
     return (
         <div>
           <h2>Publier un truc :</h2>
           <Formik
-            initialValues={{idPublication: "", content: "", userId: sessionStorage.getItem('userId'), date :""}}
+            initialValues={{
+              id: "",
+              authorName: getAuthorName,
+              authorFirstname: getAuthorFirstname,
+              authorId: getAuthorId,
+              content: "",
+              likes: "",
+              attachment: "",
+              date :""
+            }}
             onSubmit={(values, { setSubmitting }) => {
               axios.post(`http://localhost:3000/api/messages/publish`, { values })
                 .then(res => {
@@ -29,7 +43,6 @@ function Publish (){
                 .required("Champ requis."),
             })}
           >
-            
             {props => {
               const {
                 values,

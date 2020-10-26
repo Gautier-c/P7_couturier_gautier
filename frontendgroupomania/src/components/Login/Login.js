@@ -19,12 +19,9 @@ function Login() {
               const user = {
                 name: res.data.name,
                 firstname: res.data.firstname,
-                role: res.data.role
-              }
-              const userId = {
+                role: res.data.role,
                 id: res.data.id
               }
-              sessionStorage.setItem('userId', JSON.stringify(userId));
               sessionStorage.setItem('user', JSON.stringify(user));
               window.location = "/wall/"
             })
