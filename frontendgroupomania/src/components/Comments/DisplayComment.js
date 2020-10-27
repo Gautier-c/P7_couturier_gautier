@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
-import CreateComment from '../Comments/CreateComment';
-import DisplayComment from '../Comments/DisplayComment';
 
-
-function Publications() {
+function DisplayComment() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+  
 
     useEffect(() => {
-      fetch("http://localhost:3000/api/messages/")
+      fetch("http://localhost:3000/api/comments/")
         .then(res => res.json())
         .then(
           (result) => {
@@ -24,7 +20,7 @@ function Publications() {
           }
         )
     }, [])
-
+  
     if (error) {
       return <div>Erreur : {error.message}</div>;
     } else if (!isLoaded) {
@@ -33,21 +29,17 @@ function Publications() {
       return (
         <div>
           {items.map(item => (
-            <div className="content-container">
+            <div className="comment-container">
                 <div className ="author">
-                    <h4 id={item.authorId}>{item.authorName}</h4>
+                    <h4>{item.authorName} {item.authorFirstname}</h4>
                 </div>
-                <div className="content">
-                    <p>{item.content}</p>
+                <div className="comment">
+                    <p>{item.commentary}</p>
                 </div>
-                {<DisplayComment />}
-                <Popup trigger={<button> Commenter</button>} position="right center">
-                    {<CreateComment />}
-                </Popup>
             </div>
           ))}
-        </div>
+          </div>
       );
     }
   }
-export default Publications;
+export default DisplayComment;
