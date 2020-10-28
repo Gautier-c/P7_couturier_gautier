@@ -57,19 +57,19 @@ exports.login = (req, res, next) => {
         .then(valid => {
           if(!valid){
             return res.status(500).json({ message: "Email ou mot de passe incorrect"});
-          } else {
+          } 
             return res.status(200).json({
-              token: jwt.sign(
-                { id: results[0].id},
-                'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO',
-                { expiresIn : '24h'}
-              ),
-              id: results[0].id,
-              name: results[0].name,
-              firstname: results[0].firstname,
-              role: results[0].role
+                id: results[0].id,
+                name: results[0].name,
+                firstname: results[0].firstname,
+                role: results[0].role,
+                userId: results[0].id,
+                token: jwt.sign(
+                  { userId: results[0].id},
+                  'TOKEN',
+                  { expiresIn : '24h'}
+                ),
             })
-          }
         })
         .catch(() => {
           return res.status(500).json({ message : 'Erreur interne' })
@@ -78,6 +78,40 @@ exports.login = (req, res, next) => {
     })
   }
 }
+
+exports.displayInfos = (req, res, next) => {
+    const userId =
+    conDb.query('SELECT * FROM users WHERE id=?',userId, (err, result) => {
+        if(err) {
+            console.log(err);
+            return res.status(400).json({ message : "Erreur interne"})
+        }
+        return res.status(200).json({result});
+    })
+};
+
+// exports.modifyInfos = (req, res, next) => {
+//     conDb.query('SELECT * FROM users', req.params.id, (err, result) => {
+//         if (err){
+//             console.log(err);
+//             return res.status(400).json({ message : "Erreur interne"})
+//         }
+//         const token = req.headers.authorization.split(' ')[1];
+//         const decodedToken = jwt.verify(token, 'TOKEN');
+//         const userId = decodedToken.userId;
+//         if (result[0].id !== userId){
+//             return res.status(401).json({ message: 'Accès non autorisé' })
+//       }
+//     //   const modifyInfos = req.body.values;
+//     //       conDb.query('UPDATE publications SET ? WHERE id=?'[modifyInfos.content, req.params.id], (err, result) => {
+//     //           if (err) {
+//     //               console.log(err);
+//     //               return res.status(400).json({ message : "Erreur interne"})
+//     //           }
+//     //           return res.status(200).json({ message: 'Votre publications a bien été modifié !' })   
+//     //       })
+//     // })
+// };
 
 // exports.deleteUser = (req, res, next) => {
 //     const paramsId = req.params.id;

@@ -10,11 +10,6 @@ function NavBar (){
                         <p>Mon compte</p>
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink to="">
-                        <p>Se deconnecter</p>
-                    </NavLink>
-                </li>
             </ul>
         </div>
     )

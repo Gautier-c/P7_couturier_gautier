@@ -31,7 +31,7 @@ function DisplayComment() {
           {items.map(item => (
             <div className="comment-container">
                 <div className ="author">
-                    <h4>{item.authorName} {item.authorFirstname}</h4>
+                    <h5>{item.authorFirstname} {item.authorName}</h5>
                 </div>
                 <div className="comment">
                     <p>{item.commentary}</p>

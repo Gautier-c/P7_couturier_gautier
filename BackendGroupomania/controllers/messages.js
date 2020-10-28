@@ -24,112 +24,58 @@ exports.publish = (req, res, next) => {
 };
 
 // exports.modifyPublication = (req, res, next) => {
-//     connect.query('SELECT * FROM messages WHERE idMESSAGES=?', req.params.id, function(error,results){
-//         if (error){
-//             return res.status(400).json({ error })
+//     conDb.query('SELECT * FROM publications', req.params.id, (err, result) => {
+//         if (err){
+//             console.log(err);
+//             return res.status(400).json({ message : "Erreur interne"})
 //         }
-//         const token = req.headers.authorisation.split(' ')[1];
-//         const decodedToken = jwt.verify(token, 'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO');
-//         const userId = decodedToken.userId;
-//         const role = decodedToken.role
-//         const messageId = results[0].idUSERS
-//         if (userId !== messageId && role !== 'admin') {
-//             return res.status(401).json({ message : 'Impossible de modifier ce message.'})
+//         const token = req.headers.authorization.split(' ')[1];
+//         const decodedToken = jwt.verify(token, 'TOKEN');
+//         const messageId = decodedToken.userId;
+//         if (result[0].id !== messageId){
+//             return res.status(401).json({ message: 'Accès non autorisé' })
 //         }
-//         const modifyMessage = req.body;
-//         connect.query('UPDATE messages SET ? WHERE idMESSAGES=?',[modifyMessage, req.params.id], function (error,results){
-//             if (error){
-//                 return res.status(400).json({ error })
+//         const modifyMessage = req.body.values;
+//         conDb.query('UPDATE publications SET ? WHERE id=?'[modifyMessage.content, req.params.id], (err, result) => {
+//             if (err) {
+//                 console.log(err);
+//                 return res.status(400).json({ message : "Erreur interne"})
 //             }
-//             return res.status(200).json({ message : 'Message modifié.'})
+//             return res.status(200).json({ message: 'Votre publications a bien été modifié !' })   
 //         })
 //     })
 // };
 
 // exports.deletePublication = (req, res, next) => {
-//     connect.query('SELECT * FROM messages WHERE idMESSAGES=?', req.params.id, function(error,results){
-//         if (error) {
-//             return res.status(400).json({ error })
+//     conDb.query('SELECT * FROM publications', req.params.id, (err, result) => {
+//         if (err){
+//             console.log(err);
+//             return res.status(400).json({ message : "Erreur interne"})
 //         }
-//         const token = req.headers.authorisation.split(' ')[1];
-//         const decodedToken = jwt.verify(token, 'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO');
-//         const userId = decodedToken.userId;
-//         const role = decodedToken.role
-//         const messageId = results[0].idUSERS
-//         if (userId !== messageId && role !== 'admin') {
-//             return res.status(401).json({ message : 'Impossible de supprimer ce message.'})
+//         const token = req.headers.authorization.split(' ')[1];
+//         const decodedToken = jwt.verify(token, 'TOKEN');
+//         const messageDelete = decodedToken.userId;
+//         if (result[0].id !== messageDelete){
+//             return res.status(401).json({ message: 'Accès non autorisé' })
 //         }
-//         connect.query(`DELETE FROM messages WHERE idMESSAGES=${req.params.id}`, req.params.id, function (error,results){
-//             if (error){
-//                 return res.status(400).json({ error })
+//         conDb.query('DELETE FROM publications WHERE id=?', req.params.id, (err, result) => {
+//             if (err) {
+//                 console.log(err);
+//                 return res.status(400).json({ message : "Erreur interne"})
 //             }
-//             return res.status(200).json({ message : 'Message supprimé.'})
-//         })
-//     })
-// };
-
-// exports.answer = (req, res, next) => {
-//     const userAnswer = req.body
-//     connect.query('INSERT INTO answer SET ?', userAnswer, function(error,results){
-//         if (error) {
-//             return res.status(400).json({ error })
-//         }
-//         return res.status(201).json({ message : 'Réponse envoyée.'})
-//     })
-// };
-
-// exports.modifyAnswer = (req, res, next) => {
-//     connect.query('SELECT * FROM answer WHERE idANSWER=?', req.params.id, function(error,results){
-//         if (error){
-//             return res.status(400).json({ error })
-//         }
-//         const token = req.headers.authorisation.split(' ')[1];
-//         const decodedToken = jwt.verify(token, 'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO');
-//         const userId = decodedToken.userId;
-//         const role = decodedToken.role
-//         const answerId = results[0].idUSERS
-//         if (userId !== answerId && role !== 'admin') {
-//             return res.status(401).json({ message : 'Impossible de modifier ce message.'})
-//         }
-//         const modifyAnswer = req.body;
-//         connect.query('UPDATE answer SET ? WHERE idANSWER=?',[modifyAnswer, req.params.id], function (error,results){
-//             if (error){
-//                 return res.status(400).json({ error })
-//             }
-//             return res.status(200).json({ message : 'Message modifié.'})
-//         })
-//     })
-// };
-
-// exports.deleteAnswer = (req, res, next) => {
-//     connect.query('SELECT * FROM answer WHERE idANSWER=?', req.params.id, function(error,results){
-//         if (error) {
-//             return res.status(400).json({ error })
-//         }
-//         const token = req.headers.authorisation.split(' ')[1];
-//         const decodedToken = jwt.verify(token, 'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO');
-//         const userId = decodedToken.userId;
-//         const role = decodedToken.role
-//         const answerId = results[0].idUSERS
-//         if (userId !== answerId && role !== 'admin') {
-//             return res.status(401).json({ message : 'Impossible de supprimer ce message.'})
-//         }
-//         connect.query(`DELETE FROM answer WHERE idANSWER=${req.params.id}`, req.params.id, function (error,results){
-//             if (error){
-//                 return res.status(400).json({ error })
-//             }
-//             return res.status(200).json({ message : 'Message supprimé.'})
+//             return res.status(200).json({ message: 'Publication supprimée.' })   
 //         })
 //     })
 // };
 
 // exports.likeMessages = (req, res, next) => {
-//     const userLike = req.body;
-//     connect.query('INSERT INTO likes SET ?', userLike, function(error,results){
-//         if (error){
-//             return res.status(400).json({ error })
+//     const addLike = +1;
+//     conDb.query('INSERT INTO publications (likes) SET ?', addLike, (err, result) => {
+//         if (err) {
+//             console.log(err);
+//             return res.status(400).json({ message : "Erreur interne"})
 //         }
-//         return res.status(201).json({ message : 'Like ajouté.'})
+//         return res.status(201).json({ message: 'Like pris en compte.' })
 //     })
 // };
 

@@ -35,7 +35,7 @@ function Publications() {
           {items.map(item => (
             <div className="content-container">
                 <div className ="author">
-                    <h4 id={item.authorId}>{item.authorName}</h4>
+          <h4 id={item.authorId}>{item.authorFirstname} {item.authorName}</h4>
                 </div>
                 <div className="content">
                     <p>{item.content}</p>

@@ -17,10 +17,10 @@ function Login() {
               console.log(res);
               console.log(res.data);
               const user = {
+                id: res.data.id,
                 name: res.data.name,
                 firstname: res.data.firstname,
                 role: res.data.role,
-                id: res.data.id
               }
               sessionStorage.setItem('user', JSON.stringify(user));
               window.location = "/wall/"

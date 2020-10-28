@@ -8,7 +8,6 @@ function Wall (){
         <div>
             <h1>Groupomania Wall</h1>
             {<NavBar />}
-            <p>Truc du mur</p>
             <NavLink to="/Publish">
                 <p>Publier</p>
             </NavLink>
