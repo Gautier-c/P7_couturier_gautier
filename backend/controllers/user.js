@@ -79,13 +79,13 @@ exports.login = (req, res, next) => {
   }
 }
 
-// exports.deleteUser = (req, res, next) => {
-//     const paramsId = req.params.id;
-//     connect.query('DELETE FROM users WHERE userId="'+paramsId+'"', function(error,result){
-//         if (error){
-//             console.log(error);
-//             return res.status(400).json({ error })
-//         }
-//         return res.status(201).json({ message : "Utilisateur supprimé."})
-//     })
-// };
+exports.deleteUser = (req, res, next) => {
+    const deleteUser = 
+    conDb.query('DELETE FROM users WHERE id=?', deleteUser, function(err,result){
+        if (err){
+            console.log(error);
+            return res.status(400).json({ message : "Erreur interne" })
+        }
+        return res.status(201).json({ message : "Utilisateur supprimé."})
+    })
+};

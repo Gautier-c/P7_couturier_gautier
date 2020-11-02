@@ -10,8 +10,7 @@ function Login() {
 	});
 	const submitHandler = e => {
 		e.preventDefault();
-		axios
-			.post("http://localhost:3000/api/user/login", Login)
+		axios.post("http://localhost:3000/api/user/login", Login)
 			.then(res => {
 				localStorage.setItem("token", res.data.token);
 				const profile = {
@@ -21,12 +20,8 @@ function Login() {
 					role: res.data.role,
 					email: res.data.email,
 				};
-				console.log(res.data.email)
-				const idUser = profile.id;
 				localStorage.setItem("profile", JSON.stringify(profile));
-				const header = (axios.defaults.headers.common["Authorization"] =
-					res.data.token);
-				window.location = "/myprofile/";
+				window.location = "/feed/";
 			})
 			.catch(error => {
 				alert({ error: Login.error });

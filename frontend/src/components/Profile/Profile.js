@@ -4,23 +4,19 @@ import ProfileHeader from './ProfileHeader'
 
 function Profile() {
 	const [success, setSuccess] = useState(false);
-	// recup des données du profil pour les afficher
 	const myProfile = JSON.parse(localStorage.getItem("profile"));
-	// récupérer le token pour l'authentification car toutes les requêtes necessite une authentification
 	const token = localStorage.getItem("token");
-	// requête delete pour pouvoir supprimer son profil
 	const handleDeleteUser = () => {
-		const header = (axios.defaults.headers.common["Authorization"] = token);
-		axios
-			.delete("http://localhost:3000/api/user/delete")
-			.then(response => {
-				setSuccess(true);
-				setTimeout(() => {
-					window.location = "/";
-				}, 5000);
-				localStorage.clear();
-			})
-			.catch(err => setSuccess(false));
+		axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+		axios.delete("http://localhost:3000/api/user/delete")
+		.then(response => {
+			setSuccess(true);
+			setTimeout(() => {
+				window.location = "/";
+			}, 1000);
+			localStorage.clear();
+		})
+		.catch(err => setSuccess(false));
 	};
 
 	return (

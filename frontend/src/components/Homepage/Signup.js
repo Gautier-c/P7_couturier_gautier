@@ -13,10 +13,8 @@ function Signup() {
 	});
 	const submitHandler = e => {
 		e.preventDefault();
-		axios
-			.post("http://localhost:3000/api/user/signup", Signup)
+		axios.post("http://localhost:3000/api/user/signup", Signup)
 			.then(res => {
-				localStorage.setItem("token", res.data.token);
 				const profile = {
 					id: res.data.id,
 					name: res.data.name,
@@ -24,11 +22,8 @@ function Signup() {
 					role: res.data.role,
 					email: res.data.email,
 				};
-				const idUser = profile.id;
 				localStorage.setItem("profile", JSON.stringify(profile));
-				const header = (axios.defaults.headers.common["Authorization"] =
-					res.data.token);
-				window.location = "/myprofile/";
+				window.location = "/";
 			})
 			.catch(error => {
 				alert({ error: Signup.error });

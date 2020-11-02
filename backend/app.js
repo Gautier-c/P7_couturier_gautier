@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyparser = require('body-parser');
-const messagesRoutes = require('./routes/messages');
+const publicationsRoutes = require('./routes/publications');
 const userRoutes = require('./routes/user');
 const commentsRoutes = require('./routes/comments');
 const connect = require('./mysqlDbConnect');
@@ -24,7 +24,7 @@ connect.connect(function(err){
 });
 
 app.use(bodyparser.json());
-app.use('/api/messages', messagesRoutes);
+app.use('/api/publications', publicationsRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/comments', commentsRoutes);
 
