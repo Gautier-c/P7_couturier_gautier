@@ -38,7 +38,7 @@ function Profile() {
 
 	const handleDeleteUser = () => {
 		axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-		axios.delete(`http://localhost:3000/api/user/myprofile/${id}`)
+		axios.delete(`http://localhost:3000/api/user/${id}`)
 		.then(response => {
 			setTimeout(() => {
 				window.location = "/";

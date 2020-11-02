@@ -88,8 +88,7 @@ exports.getOneUser = (req, res, next) => {
 };
 
 exports.deleteUser = (req, res, next) => {
-    userId = req.body
-    console.log(req.body)
+    const userId = req.params.id
     conDb.query('DELETE FROM users WHERE id=?', userId, function(err,result){
         if (err){
             console.log(err);
