@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from "react-router-dom";
 import FeedHeader from "./FeedHeader";
 import axios from "axios";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import cookies from "js-cookie";
+// import Comments from "./Comments/Comments";
+// import DisplayComments from "./Comments/DisplayComments";
 
 function Feed() {
 
@@ -53,17 +57,23 @@ function Feed() {
                 </NavLink>
             </div>
             <div>
-                {publications.map(item => (
-                    <div className="content-container">
-                        <div className ="author">
-                            <h4>{item.authorfirstname} {item.authorname}</h4>
+                {publications.map(item => (     
+                    <div key={item.id} className="grid-container" >
+                        <div className="name">
+                            <h3 className="content">{item.authorfirstname} {item.authorname}</h3>
                         </div>
-                        <div className="content">
-                            <p>{item.content}</p>
+                        <div className="name">
+                            <p className="content">{item.content} </p>
+                            <p>{item.attachment}</p>
+                            {/* {<DisplayComments />}
+                            <Popup trigger={<button> Commenter</button>} position="right center">
+                                {<Comments />}
+                            </Popup> */}
                         </div>
                     </div>
-                ))}
+                ))}                     
             </div>
+
         </div>
       );
     }

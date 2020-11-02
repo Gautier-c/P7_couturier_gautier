@@ -31,8 +31,9 @@ function Profile() {
 	}, []);
 
 	const handleDisconnect = () => {
-		cookies.remove('token')
-		cookies.remove('id')
+		cookies.remove('token');
+		cookies.remove('id');
+		localStorage.clear('profile');
 		window.location = "/";
 	};
 
@@ -43,8 +44,9 @@ function Profile() {
 			setTimeout(() => {
 				window.location = "/";
 			}, 1000);
-			cookies.remove('token')
-			cookies.remove('id')
+			cookies.remove('token');
+			cookies.remove('id');
+			localStorage.clear('profile');
 		})
 		.catch(err => setError(true));
 	};

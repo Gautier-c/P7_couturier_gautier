@@ -15,14 +15,6 @@ function Signup() {
 		e.preventDefault();
 		axios.post("http://localhost:3000/api/user/signup", Signup)
 			.then(res => {
-				const profile = {
-					id: res.data.id,
-					name: res.data.name,
-					firstname: res.data.firstname,
-					role: res.data.role,
-					email: res.data.email,
-				};
-				localStorage.setItem("profile", JSON.stringify(profile));
 				window.location = "/";
 			})
 			.catch(error => {

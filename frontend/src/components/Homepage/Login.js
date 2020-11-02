@@ -15,7 +15,16 @@ function Login() {
 			.then(res => {
 				cookies.set('token', res.data.token);
 				cookies.set('id', res.data.id);
+				const profile = {
+					id: res.data.id,
+					name: res.data.name,
+					firstname: res.data.firstname,
+					role: res.data.role,
+					email: res.data.email,
+				};
+				localStorage.setItem('profile', JSON.stringify(profile));
 				window.location = "/feed/";
+
 			})
 			.catch(error => {
 				alert({ error: Login.error });

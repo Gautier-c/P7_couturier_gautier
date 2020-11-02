@@ -59,12 +59,15 @@ exports.login = (req, res, next) => {
                         return res.status(500).json({ message: "Email ou mot de passe incorrect"});
                     } else {
                         return res.status(200).json({
+                            id: results[0].id,
+                            name: results[0].name,
+                            firstname: results[0].firstname,
+                            role: results[0].role,
                             token: jwt.sign(
                             { id: results[0].id},
                             'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO',
                             { expiresIn : '24h'}
-                            ),
-                            id: results[0].id,
+                            ) 
                         })
                     }
                 })

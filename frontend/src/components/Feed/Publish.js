@@ -5,25 +5,25 @@ import { NavLink } from "react-router-dom";
 
 function Publish() {
 	const token = cookies.get('token');
-    const profile = JSON.parse(localStorage.getItem("profile"));
-    const authorName = profile.name;
-    const authorFirstname = profile.firstname;
-    const authorId = profile.id;
+	const id = cookies.get('id');
+	const userInfo = JSON.parse(localStorage.getItem('profile'));
+	const userName = userInfo.name;
+	const userFirstname = userInfo.firstname;
+	const userRole = userInfo.role
+
 	const [Publish, setPublish] = useState({
-        authorname: authorName,
-        authorfirstname: authorFirstname,
-        authorid: authorId,
+        authorname: userName,
+        authorfirstname: userFirstname,
+        authorid: id,
         content: "",
         likes: "",
         attachment: "",
 	});
-	const submitHandler = e => {
+	const handlerPublish = e => {
         e.preventDefault();
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 		axios.post("http://localhost:3000/api/publications/publish", Publish)
 			.then(res => {
-				cookies.set('token', res.data.token);
-				// localStorage.setItem("token", token);
 				window.location = "/feed/";
 			})
 			.catch(error => {
@@ -33,15 +33,13 @@ function Publish() {
 	if (Publish.content === null) {
 		console.log("connexion impossible");
 	}
-
 	return (
-		
 		<div>
             <NavLink to="/feed">Retour</NavLink>
-			<h2>Remplissez le formulaire pour vous inscrire</h2>
-			<form onSubmit={submitHandler}>
+			<h2>Ecrivez et partagez ici !</h2>
+			<form onSubmit={handlerPublish}>
 				<div className="form-group">
-					<label htmlFor="content">Votre publication :</label>
+					<label htmlFor="content">Ecrivez ci dessous :</label>
 					<input
 						type="content"
 						className="form-control"
@@ -53,7 +51,13 @@ function Publish() {
 						placeholder="Votre publication ..."
 					/>
 				</div>
-				
+				<div className="form-group">
+					<form >
+						<div className="file-upload">
+                			<input type="file" onChange={e => setPublish({ ...Publish, attachment: e.target.value })} />
+                		</div>
+      				</form>				
+				</div>		
 				<button type="submit" className="btn btn-danger">
 					Publier
 				</button>

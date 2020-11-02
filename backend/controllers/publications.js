@@ -22,6 +22,17 @@ exports.publish = (req, res, next) => {
     })
 };
 
+exports.getOnePublications = (req, res, next) => {
+    const publicationsId = req.params.id
+    conDb.query('SELECT * FROM publications WHERE id="'+publicationsId+'"', function(err,result){
+      if (err){
+          console.log(err);
+          return res.status(400).json({ message : "Erreur interne" })
+      }
+      return res.status(201).json({ result })
+  })
+};
+
 // exports.modifyPublication = (req, res, next) => {
 //     connect.query('SELECT * FROM messages WHERE idMESSAGES=?', req.params.id, function(error,results){
 //         if (error){

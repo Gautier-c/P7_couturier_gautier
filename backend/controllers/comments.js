@@ -2,7 +2,7 @@ const conDb = require('../mysqlDbConnect');
 const jwt = require('jsonwebtoken');
 
 exports.comments = (req, res, next) => {
-    const newComment = req.body.values
+    const newComment = req.body
     conDb.query('INSERT INTO comments SET ?', newComment, (err, result) => {
         if (err) {
             console.log(err);
