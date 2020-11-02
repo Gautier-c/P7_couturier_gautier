@@ -16,7 +16,7 @@ export class App extends Component {
 					<Route exact path="/signup" component={Signup} />
 					<Route exact path="/" component={Login} />
 					<Route exact path="/feed" component={Feed} />
-          			<Route exact path="/myprofile" component={Profile} />
+          			<Route exact path="/myprofile/:id" component={Profile} />
 					<Route exact path="/publish" component={Publish} />
 				</div>
 			</Router>

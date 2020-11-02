@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import cookies from "js-cookie";
 import { NavLink } from "react-router-dom";
 
 function Publish() {
-    const token = localStorage.getItem("token");
+	const token = cookies.get('token');
     const profile = JSON.parse(localStorage.getItem("profile"));
     const authorName = profile.name;
     const authorFirstname = profile.firstname;
@@ -21,7 +22,8 @@ function Publish() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 		axios.post("http://localhost:3000/api/publications/publish", Publish)
 			.then(res => {
-				localStorage.setItem("token", token);
+				cookies.set('token', res.data.token);
+				// localStorage.setItem("token", token);
 				window.location = "/feed/";
 			})
 			.catch(error => {

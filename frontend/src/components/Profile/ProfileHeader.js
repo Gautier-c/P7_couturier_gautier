@@ -6,7 +6,7 @@ function ProfileHeader() {
         <div>
             <h1>Groupomania</h1>
 
-                    <NavLink to="/wall">Accueil</NavLink>
+                    <NavLink to="/feed">Accueil</NavLink>
 
         </div>
     );

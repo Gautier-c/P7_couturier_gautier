@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import cookies from "js-cookie";
 import HomepageHeader from './HomepageHeader';
 
 function Login() {
@@ -12,15 +13,8 @@ function Login() {
 		e.preventDefault();
 		axios.post("http://localhost:3000/api/user/login", Login)
 			.then(res => {
-				localStorage.setItem("token", res.data.token);
-				const profile = {
-					id: res.data.id,
-					name: res.data.name,
-					firstname: res.data.firstname,
-					role: res.data.role,
-					email: res.data.email,
-				};
-				localStorage.setItem("profile", JSON.stringify(profile));
+				cookies.set('token', res.data.token);
+				cookies.set('id', res.data.id);
 				window.location = "/feed/";
 			})
 			.catch(error => {

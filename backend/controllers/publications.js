@@ -8,7 +8,6 @@ exports.getAllPublications = (req, res, next) => {
             return res.status(400).json({ message : "Erreur interne"})
         }
         return res.status(200).json({result});
-        
     })
 };
 

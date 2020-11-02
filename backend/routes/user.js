@@ -5,6 +5,7 @@ const auth = require('../middleware/auth');             //Appel middleware auth.
 
 router.post('/signup', userCtrl.signup);            //Route inscription utilisateur
 router.post('/login', userCtrl.login);              //Route connexion utilisateur
+router.get('/myprofile/:id', auth,userCtrl.getOneUser);
 router.delete('/delete', auth, userCtrl.deleteUser);   //Route suppression utilisateur
 
 
