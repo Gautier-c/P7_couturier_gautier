@@ -15,14 +15,24 @@ function Publish() {
         authorname: userName,
         authorfirstname: userFirstname,
         authorid: id,
-        content: "",
-        likes: "",
-        attachment: "",
+        title: "",
+        attachment: ""
 	});
 	const handlerPublish = e => {
-        e.preventDefault();
+		e.preventDefault();
+
+		const formData = new FormData();
+		formData.append("authorname", Publish.authorname);
+		formData.append("authorfirstname", Publish.authorfirstname);
+		formData.append("authorid", Publish.authorid);
+		formData.append("title", Publish.title);
+		formData.append("attachment", Publish.attachment);
+
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-		axios.post("http://localhost:3000/api/publications/publish", Publish)
+		axios.post("http://localhost:3000/api/publications/publish", formData,{
+			headers: { "Content-Type": "multipart/form-data" }
+		}
+		)
 			.then(res => {
 				window.location = "/feed/";
 			})
@@ -30,31 +40,38 @@ function Publish() {
 				alert({ error: Publish.error });
 			});
 	};
-	if (Publish.content === null) {
+
+	if (Publish.title === null) {
 		console.log("connexion impossible");
 	}
 	return (
 		<div>
             <NavLink to="/feed">Retour</NavLink>
-			<h2>Ecrivez et partagez ici !</h2>
+			<h2>Le partage c'est par ici !</h2>
 			<form onSubmit={handlerPublish}>
 				<div className="form-group">
-					<label htmlFor="content">Ecrivez ci dessous :</label>
+					<label htmlFor="title">Titre de votre publication :</label>
 					<input
-						type="content"
+						type="title"
 						className="form-control"
-						name="content"
-						id="content"
-						value={Publish.content}
-						onChange={e => setPublish({ ...Publish, content: e.target.value })}
-						aria-describedby="contentHelp"
-						placeholder="Votre publication ..."
+						name="title"
+						id="title"
+						value={Publish.title}
+						onChange={e => setPublish({ ...Publish, title: e.target.value })}
+						aria-describedby="titleHelp"
+						placeholder="Votre titre ..."
 					/>
 				</div>
 				<div className="form-group">
 					<form >
 						<div className="file-upload">
-                			<input type="file" onChange={e => setPublish({ ...Publish, attachment: e.target.value })} />
+							<input
+								type="file"
+								className="attachment"
+								name="attachment"
+								id="attachment"
+								onChange={e => setPublish({ ...Publish, attachment: e.target.files[0] })}
+							/>
                 		</div>
       				</form>				
 				</div>		

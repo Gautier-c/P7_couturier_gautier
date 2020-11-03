@@ -1,5 +1,5 @@
 const conDb = require('../mysqlDbConnect');
-const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 exports.getAllPublications = (req, res, next) => {
     conDb.query('SELECT * FROM publications', (err, result) => {
@@ -12,7 +12,14 @@ exports.getAllPublications = (req, res, next) => {
 };
 
 exports.publish = (req, res, next) => {
-    const publications = req.body
+    const attachmentUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const publications = {
+        authorname: req.body.authorname,
+        authorfirstname: req.body.authorfirstname,
+        authorid: req.body.authorid,
+        title: req.body.title,
+        attachment: attachmentUrl
+    }
     conDb.query('INSERT INTO publications SET ?', publications, (err, result) => {
         if (err) {
             console.log(err);

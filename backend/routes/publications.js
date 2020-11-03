@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();      
 const publicationsCtrl = require('../controllers/publications');
 const auth = require('../middleware/auth');
-// const multer = require('../middleware/multer-config');
+const multer = require('../middleware/multer-config');
 
 router.get('/',auth, publicationsCtrl.getAllPublications);
-router.post('/publish', auth, publicationsCtrl.publish);
+router.post('/publish', auth, multer, publicationsCtrl.publish);
 router.get('/:id', auth, publicationsCtrl.getOnePublications);
 // router.put('/:id', auth, multer, publicationsCtrl.modifyPublication);
 // router.delete('/:id', auth, publicationsCtrl.deletePublication);

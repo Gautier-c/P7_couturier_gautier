@@ -1,10 +1,33 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+
 
 function ProfileHeader() {
+
+    const userInfo = JSON.parse(localStorage.getItem('profile'));
+    const userAdmin = userInfo.role;
+
+    const handleAdminBoard = () => {
+        window.location = "/adminArea";
+    };
+ 
     return (
         <div>
-            <h1>Groupomania</h1>
+            <h1>GROUPOMANIA</h1>
+            <div>
+                {userAdmin === 'admin' && 
+                <button
+                type="button"
+                onClick={handleAdminBoard}
+                className="btn-myaccount"
+                >
+                    Tableau de bord Admin
+                </button>}
+                
+            </div>
         </div>
+        
+
     );
 }
 

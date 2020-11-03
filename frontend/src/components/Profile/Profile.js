@@ -83,6 +83,7 @@ function Profile() {
 						>
 							Se déconnecter
 						</button>
+						<p></p>
 						<button
 							type="button"
 							onClick={handleDeleteUser}
