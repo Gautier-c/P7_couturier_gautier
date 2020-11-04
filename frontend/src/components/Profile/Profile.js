@@ -8,6 +8,8 @@ function Profile() {
 	const token = cookies.get('token');
 	const id = cookies.get('id');
 
+	const userInfo = JSON.parse(localStorage.getItem('profile'));
+	const userNormal = userInfo.role;
 	
 	const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -62,11 +64,11 @@ function Profile() {
 				<div className="header">
 					<ProfileHeader />
 					<div>
-						<h2>Votre profil :</h2>
+						<h2 className="myprofile">Informations de votre profil :</h2>
 					</div>
 					<div className="user-information">
 					{userInformation.map(item => (
-						<div className="content-container">
+						<div className="profile-info">
 							<div className ="name">
 								<h4>Nom : {item.name}</h4>
 								<h4>Prénom : {item.firstname}</h4>
@@ -75,23 +77,27 @@ function Profile() {
 						</div>
 					))}	
 					</div>
-					<div className="button">
-					<button
-							type="button"
-							onClick={handleDisconnect}
-							className="btn btn-danger"
-						>
-							Se déconnecter
-						</button>
-						<p></p>
-						<button
-							type="button"
-							onClick={handleDeleteUser}
-							className="btn btn-danger"
-						>
-							Supprimer mon compte
-						</button>
+					<div className="button-profile">
+						<div className="button-disconnect">
+							<button
+								type="button"
+								onClick={handleDisconnect}
+								className="btn btn-danger"
+							>
+								Se déconnecter
+							</button>
+						</div>							
 					</div>
+					<div className="button-delete-account">
+							{userNormal === 'user' &&
+							<button
+								type="button"
+								onClick={handleDeleteUser}
+								className="btn btn-danger"
+							>
+								Supprimer mon compte
+							</button>}
+					</div>	
 				</div>
 			</div>
 		);

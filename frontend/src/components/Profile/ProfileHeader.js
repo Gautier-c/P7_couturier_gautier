@@ -1,13 +1,21 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+
+const handleReturn = () => {
+    window.location = "/feed";
+};
 
 function ProfileHeader() {
     return (
         <div>
-            <h1>Groupomania</h1>
-
-                    <NavLink to="/feed">Accueil</NavLink>
-
+            <h1 className="groupomania-title">Groupomania social network</h1>
+            <div>
+            <button 
+                type="button"
+                onClick={handleReturn}
+            >
+				Retour Accueil
+			</button>
+            </div>                   
         </div>
     );
 }

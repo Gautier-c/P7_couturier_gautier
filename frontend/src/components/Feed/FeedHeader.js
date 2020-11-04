@@ -1,6 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-
 
 function ProfileHeader() {
 
@@ -13,7 +11,7 @@ function ProfileHeader() {
  
     return (
         <div>
-            <h1>GROUPOMANIA</h1>
+            <h1 className="groupomania-title">Groupomania social network</h1>
             <div>
                 {userAdmin === 'admin' && 
                 <button
@@ -23,8 +21,8 @@ function ProfileHeader() {
                 >
                     Tableau de bord Admin
                 </button>}
-                
             </div>
+            
         </div>
         
 

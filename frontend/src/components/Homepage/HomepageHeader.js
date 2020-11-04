@@ -2,7 +2,7 @@ import React from "react";
 
 function HomepageHeader() {
     return (
-        <h1>Groupomania</h1>
+        <h1 className="groupomania-title">Groupomania social network</h1>
     );
 }
 

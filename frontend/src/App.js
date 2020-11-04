@@ -5,8 +5,8 @@ import Profile from "./components/Profile/Profile";
 import Feed from "./components/Feed/Feed";
 import Publish from "./components/Feed/Publish";
 import { BrowserRouter as Router, Route} from "react-router-dom";
-
 import "./App.css";
+import AdminBoard from "./components/Admin/AdminBoard";
 
 export class App extends Component {
 	render() {
@@ -18,6 +18,7 @@ export class App extends Component {
 					<Route exact path="/feed" component={Feed} />
           			<Route exact path="/myprofile/:id" component={Profile} />
 					<Route exact path="/publish" component={Publish} />
+					<Route exact path="/adminarea" component={AdminBoard} />
 				</div>
 			</Router>
 		);

@@ -29,7 +29,7 @@ function Signup() {
 		
 		<div>
 			<HomepageHeader />
-			<h2>Remplissez le formulaire pour vous inscrire</h2>
+			<h3>Remplissez le formulaire pour vous inscrire</h3>
 			<form onSubmit={submitHandler}>
 				<div className="form-group">
 					<label htmlFor="email">Email :</label>
@@ -84,7 +84,9 @@ function Signup() {
 					S'inscrire
 				</button>
 				<p>Vous avez déjà un compte ?</p>
-				<NavLink to="/"> Cliquez ici !</NavLink>
+				<div className="homepage-link">
+					<NavLink to="/"><span className="link">Cliquez ici !</span></NavLink>
+				</div>
 			</form>
 		</div>
 	);

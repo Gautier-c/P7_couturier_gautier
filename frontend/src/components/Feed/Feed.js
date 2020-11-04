@@ -51,28 +51,29 @@ function Feed() {
 					Mon compte
 				</button>
                 <div>
-                    <h1>Toutes les publications :</h1>
+                    <h1>Retrouvez toutes les publications ci dessous :</h1>
                 </div>
                 <NavLink to="/publish">
-                    <p>Ecrivez sur le mur en cliquant ici !</p>
+                    <p className="link">Ecrivez sur le mur en cliquant ici !</p>
                 </NavLink>
             </div>
-            <div>
-
+            <div id="feed-container">
                 {publications.map(item => (     
-                    <div key={item.id} className="grid-container" >
-                        <div className="title">
-                            <h3 className="content">{item.title}</h3>
-                            <p>{item.authorfirstname}{item.authorname}</p>
+                    <div className="grid-container" >
+                        <div className="infos" id={item.id}>
+                            <div className="title">
+                            <h3>{item.title}</h3>
+                            </div>
+                            <div className="name">
+                            <p className="authorname">{item.authorfirstname}{item.authorname}</p>
+                            </div>
                         </div>
-                        <div className="name">
-                            <p className="content">{item.content} </p>
-                            <img src={`${item.attachment}`}></img>
+                        <div className="image">
+                            <img className="img-container" src={`${item.attachment}`}></img>
                         </div>
                     </div>
                 ))}                     
             </div>
-
         </div>
       );
     }

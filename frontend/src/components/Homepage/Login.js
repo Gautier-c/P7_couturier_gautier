@@ -38,7 +38,7 @@ function Login() {
 		
 		<div>
 			<HomepageHeader />
-			<h2>Remplissez le formulaire pour vous connecter :</h2>
+			<h3 className="form-connect">Remplissez le formulaire pour vous connecter :</h3>
 			<form onSubmit={submitHandler}>
 				<div className="form-group">
 					<label htmlFor="email">Email :</label>
@@ -65,11 +65,13 @@ function Login() {
 						placeholder="Votre mot de passe ..."
 					/>
 				</div>
-				<button type="submit" className="btn btn-danger">
+				<button type="submit" className="btn-connect">
 					Se connecter
 				</button>
 				<p>Vous n'avez pas encore de compte ?</p>
-				<NavLink to="/signup"> Cliquez ici !</NavLink>
+				<div className="homepage-link">
+					<NavLink to="/signup"><span className="link">Cliquez ici !</span></NavLink>
+				</div>
 			</form>
 		</div>
 	);
