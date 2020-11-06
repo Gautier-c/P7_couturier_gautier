@@ -6,7 +6,10 @@ import 'reactjs-popup/dist/index.css';
 import cookies from "js-cookie";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import AdminDelete from './AdminDelete';
+import * as moment from 'moment';
+import 'moment/locale/fr';
+import DeletePublications from './DeletePublications';
+import DeleteComments from './DeleteComments';
 
 
 function AdminBoard() {
@@ -18,6 +21,7 @@ function AdminBoard() {
 	const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [publications, setPublications] = useState([]);
+    const [comments, setComments] = useState([]);
 
     useEffect(() => {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -34,11 +38,22 @@ function AdminBoard() {
         )
     }, []);
 
-    const handleDelete = () => {
-        console.log('123456')
-        const test = document.getElementsByClassName('title')[0].id;
-        console.log(test)
-	};
+    useEffect(() => {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        axios.get("http://localhost:3000/api/comments/")
+        .then(result => {
+            setIsLoaded(true);
+            const comments = result.data.result;
+            setComments(comments);
+          })
+          .catch(error => {
+            setIsLoaded(true);
+            setError(error);
+          }
+        )
+    }, []);
+
+
 
     if (error) {
         return <div>Erreur : {error.message}</div>;
@@ -56,19 +71,19 @@ function AdminBoard() {
                    </div>
                 }
                {userAdmin === 'admin' && 
-                   <div>
-                       <div>
-                            <AdminHeader />
-                       </div>
-                       <h2>Espace admin : Vous pouvez supprimer certaines publications ici </h2>
-                       <h4>Listes des publications :</h4>
-                       {publications.map(item => (     
+                <div>
+                    <div>
+                        <AdminHeader />
+                    </div>
+                        <h2>Espace admin : Vous pouvez supprimer des publications et/ou des commentaires </h2>
+                    <div>
+                        <h4>Listes des publications :</h4>
+                        {publications.map(item => (     
                             <div key={item.id} className="grid-container" >
                                 <div className="title" id={item.id}>
-                                    <p>Crée le : {item.date}</p>
+                                    <p>Crée le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
                                     <p>Créateur : {item.authorfirstname}{item.authorname}</p>
-                                    <h3 className="content">{item.title}</h3>   
-                                    
+                                    <h3 className="content">{item.title}</h3>                               
                                 </div>
                                 <div className="name">
                                     <p className="content">{item.content} </p>
@@ -76,12 +91,32 @@ function AdminBoard() {
                                 </div>
                                 <Popup trigger={<button>Supprimer la publication</button>} position="right center">
                                     <div>
-                                        <AdminDelete />
+                                        <DeletePublications />
                                     </div>                  
                                 </Popup>
                             </div>
                         ))}
-                   </div>
+                    </div>
+                    <div>
+                        <h4>Listes des commentaire</h4>
+                        {comments.map(item => (     
+                            <div key={item.id} className="grid-container" >
+                                <div className="title" id={item.id}>
+                                    <p>Crée le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
+                                    <p>Créateur : {item.authorfirstname} {item.authorname}</p>                              
+                                </div>
+                                <div className="name">
+                                    <p className="content">{item.commentary} </p>
+                                </div>
+                                <Popup trigger={<button>Supprimer le commentaire</button>} position="right center">
+                                    <div>
+                                        <DeleteComments />
+                                    </div>                  
+                                </Popup>
+                            </div>
+                        ))}
+                    </div>
+                </div>
                 }
            </div>
         )

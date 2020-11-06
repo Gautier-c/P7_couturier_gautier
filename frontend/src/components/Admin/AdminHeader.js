@@ -4,10 +4,9 @@ import cookies from "js-cookie";
 
 function AdminHeader() {
 
-    const userInfo = JSON.parse(localStorage.getItem('profile'));
-    const userAdmin = userInfo.role;
-    const handleAdminBoard = () => {
-        window.location = "/adminArea";
+
+    const handleReturn = () => {
+        window.location = "/feed";
     };
 
     const handleMyAccount = () => {
@@ -17,11 +16,17 @@ function AdminHeader() {
  
     return (
         <div>
-            <h1>GROUPOMANIA</h1>
+            <h1 className="groupomania-title">Groupomania social network</h1>
             <div>
-            <NavLink to="/feed">
-                    <p>Retour à l'accueil</p>
-            </NavLink>
+                <div>
+                    <button 
+                        type="button"
+                        onClick={handleReturn}
+                    >
+                        Retour Accueil
+                    </button>
+                </div>
+                 
             <button
 				type="button"
 				onClick={handleMyAccount}

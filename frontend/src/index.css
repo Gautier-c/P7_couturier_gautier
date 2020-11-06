@@ -67,10 +67,16 @@ button:hover {
   color: black;
 }
 
+/* FEED */
 #feed-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.btn-myaccount{
+  margin-top: -5%;
+  margin-left: 40%;
+  margin-bottom: 3%;
 }
 
 .grid-container {
@@ -89,10 +95,13 @@ button:hover {
   margin-bottom: 2%;
 }
 .groupomania-title{
-  margin-top: 8%;
+  margin-top: 3%;
   margin-bottom: 5%;
   font-size: 60px;
 }
+
+
+/* LOGIN SIGNUP */
 .form-connect {
   margin-bottom: 5%;
 }
@@ -111,7 +120,7 @@ a:link
   margin:auto;
   text-align:center;  
   width:100%;
-  height:200px;
+  height:100px;
 }
 span {
   display: inline;
@@ -134,7 +143,12 @@ span:hover:after {
   width: 100%;
 }
 
+.popup-title {
+  color: rgb(025, 043, 074);
+}
 
+
+/* PROFILE */
 .myprofile {
   margin-top: 3%;
   margin-bottom: 3%;

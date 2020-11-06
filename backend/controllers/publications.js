@@ -2,7 +2,7 @@ const conDb = require('../mysqlDbConnect');
 const fs = require('fs');
 
 exports.getAllPublications = (req, res, next) => {
-    conDb.query('SELECT * FROM publications', (err, result) => {
+    conDb.query('SELECT * FROM publications ORDER BY date DESC', (err, result) => {
         if(err) {
             console.log(err);
             return res.status(400).json({ message : "Erreur interne"})
@@ -48,7 +48,6 @@ exports.deletePublication = (req, res, next) => {
             console.log(err);
             return res.status(400).json({ message : "Erreur interne" })
         }
-        
         return res.status(201).json({ message : "Publication supprimée."})
     })
 };

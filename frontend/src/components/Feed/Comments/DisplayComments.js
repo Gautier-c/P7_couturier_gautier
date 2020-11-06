@@ -5,17 +5,21 @@ import cookies from "js-cookie";
 function DisplayComments() {
 
     const token = cookies.get('token');
-    const [error, setError] = useState(null);
+
+	const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [comments, setComments] = useState([]);
-  
+    const [comments, setcomments] = useState([]);
+
+    const id = window.location.href.split('=').reverse()[0]
+    console.log(id)
+
     useEffect(() => {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-        axios.get("http://localhost:3000/api/comments/")
+        axios.get(`http://localhost:3000/api/comments/${id}`)
         .then(result => {
             setIsLoaded(true);
             const comments = result.data.result;
-            setComments(comments);
+            setcomments(comments);
           })
           .catch(error => {
             setIsLoaded(true);
@@ -23,27 +27,33 @@ function DisplayComments() {
           }
         )
     }, []);
-    
-  
+
+
     if (error) {
       return <div>Erreur : {error.message}</div>;
     } else if (!isLoaded) {
-      return <div>Chargement...</div>;
-    } else {
+        return <div>Chargement...</div>;
+      } else {
       return (
         <div>
-          {comments.map(item => (
-            <div className="comment-container">
-                <div className ="author">
-                    <h4>{item.authorName} {item.authorFirstname}</h4>
-                </div>
-                <div className="comment">
-                    <p>{item.commentary}</p>
-                </div>
-            </div>
-          ))}
-          </div>
+            <div>
+                {comments.map(item => (
+                    <div>
+                        <div id="feed-container">    
+                            <div className="grid-container" >
+                                <div className="infos"  >
+                                    <div className="name">
+                                        <p className="authorname">{item.authorfirstname} {item.authorname}</p>
+                                        <p>{item.commentary}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>           
+                ))} 
+            </div>  
+        </div>       
       );
     }
-  }
+}
 export default DisplayComments;

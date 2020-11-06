@@ -22,7 +22,6 @@ function Profile() {
 			setIsLoaded(true);
             const userInformation = result.data.result;
 			setuserInformation(userInformation);
-			console.log('test3')
           })
           .catch(error => {
 			console.log(error);

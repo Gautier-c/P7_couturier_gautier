@@ -3,7 +3,7 @@ import axios from "axios";
 
 import cookies from "js-cookie";
 
-function AdminDelete() {
+function DeleteComments() {
     const token = cookies.get('token');
 
     const [error, setError] = useState(null);
@@ -11,21 +11,21 @@ function AdminDelete() {
     const handleAdminDelete = () => {
         const id = document.getElementsByClassName('title')[0].id;
         console.log(id)
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-		axios.delete(`http://localhost:3000/api/publications/${id}`)
-		.then(response => {
-			setTimeout(() => {
-				window.location = "/";
-			}, 1000);
-            window.location = "/adminArea";
-		})
-		.catch(err => setError(true));
+        // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+		// axios.delete(`http://localhost:3000/api/publications/${id}`)
+		// .then(response => {
+		// 	setTimeout(() => {
+		// 		window.location = "/";
+		// 	}, 1000);
+        //     window.location = "/adminArea";
+		// })
+		// .catch(err => setError(true));
     };
  
     return (
         <div>
             <div>
-                <h4>Attention vous allez supprimer cette publication</h4>
+                <h4 className="popup-title">Attention vous allez supprimer ce commentaire</h4>
             </div>
             <div>
             <button
@@ -42,4 +42,4 @@ function AdminDelete() {
     );
 }
 
-export default AdminDelete;
+export default DeleteComments;

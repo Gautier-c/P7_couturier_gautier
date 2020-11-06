@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import cookies from "js-cookie";
 import { NavLink } from "react-router-dom";
+import FeedHeader from "./FeedHeader";
 
 function Publish() {
 	const token = cookies.get('token');
@@ -46,7 +47,10 @@ function Publish() {
 	}
 	return (
 		<div>
-            <NavLink to="/feed">Retour</NavLink>
+			<FeedHeader />
+            <div className="homepage-link">
+					<NavLink to="/feed"><span className="link">Retour</span></NavLink>
+				</div>
 			<h2>Le partage c'est par ici !</h2>
 			<form onSubmit={handlerPublish}>
 				<div className="form-group">
