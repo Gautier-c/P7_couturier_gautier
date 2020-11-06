@@ -7,7 +7,6 @@ const connect = require('./mysqlDbConnect');
 const path = require('path');
 const app = express();
 
-
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -23,7 +22,6 @@ connect.connect(function(err){
         console.log("Connection BDD Groupomania réussie")
     }
 });
-
 
 app.use(bodyparser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));

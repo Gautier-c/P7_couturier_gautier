@@ -50,11 +50,24 @@ function AdminBoard() {
         )
     }, []);
 
-    const handleDeleteComment = (e) => {
+    const handleDeletePublication = (e) => {
         const id = e.currentTarget.id
         console.log(id)
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-		axios.delete(`http://localhost:3000/api/comments/${id}`)
+		axios.delete(`http://localhost:3000/api/publications/${id}`)
+		.then(response => {
+			setTimeout(() => {
+				window.location = "/";
+			}, 1000);
+            window.location = "/adminArea";
+		})
+		.catch(err => setError(true));
+    };
+
+    const handleDeleteComment = (e) => {
+        const commentId = e.currentTarget.id
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+		axios.delete(`http://localhost:3000/api/comments/${commentId}`)
 		.then(response => {
 			setTimeout(() => {
 				window.location = "/";
@@ -64,9 +77,6 @@ function AdminBoard() {
 		.catch(err => setError(true));
     };
  
-
-
-
     if (error) {
         return <div>Erreur : {error.message}</div>;
     } else if (!isLoaded) {
@@ -91,8 +101,8 @@ function AdminBoard() {
                     <div>
                         <h4>Listes des publications :</h4>
                         {publications.map(item => (     
-                            <div key={item.id} className="grid-container" >
-                                <div className="title" id={item.id}>
+                            <div className="grid-container" >
+                                <div className="title">
                                     <p>Crée le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
                                     <p>Créateur : {item.authorfirstname}{item.authorname}</p>
                                     <h3 className="content">{item.title}</h3>                               
@@ -101,9 +111,21 @@ function AdminBoard() {
                                     <p className="content">{item.content} </p>
                                     <img src={`${item.attachment}`}></img>
                                 </div>
-                                <Popup trigger={<button id={item.id}>Supprimer la publication</button>} position="right center">
+                                <Popup trigger={<button >Supprimer la publication</button>} position="right center">
                                     <div>
-                                        
+                                        <div>
+                                            <h4 className="popup-title">Attention vous allez supprimer cette publication</h4>
+                                        </div>
+                                        <div>
+                                            <button
+                                                type="button"
+                                                id={item.id}
+                                                onClick={handleDeletePublication}
+                                                className="btn-myaccount"
+                                            >
+                                                Confirmer
+                                            </button>
+                                        </div>
                                     </div>                  
                                 </Popup>
                             </div>
@@ -112,8 +134,8 @@ function AdminBoard() {
                     <div>
                         <h4>Listes des commentaire</h4>
                         {comments.map(item => (     
-                            <div key={item.id} className="grid-container" >
-                                <div className="comment-title" id={item.id}>
+                            <div className="grid-container" >
+                                <div className="comment-title">
                                     <p>Crée le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
                                     <p>Créateur : {item.authorfirstname} {item.authorname}</p>                              
                                 </div>
