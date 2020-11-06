@@ -39,7 +39,7 @@ function Login() {
 		<div>
 			<HomepageHeader />
 			<h3 className="form-connect">Remplissez le formulaire pour vous connecter :</h3>
-			<form onSubmit={submitHandler}>
+			<form className="form" onSubmit={submitHandler}>
 				<div className="form-group">
 					<label htmlFor="email">Email :</label>
 					<input

@@ -1,9 +1,9 @@
 import React from "react";
 import cookies from "js-cookie";
+import homepagelogo from '../../logo/icon-left-font-monochrome-white.png'
 
 function ProfileHeader() {
 
-    const token = cookies.get('token');
     const userInfo = JSON.parse(localStorage.getItem('profile'));
     const userAdmin = userInfo.role;
 
@@ -18,7 +18,7 @@ function ProfileHeader() {
  
     return (
         <div>
-            <h1 className="groupomania-title">Groupomania social network</h1>
+            <img className="homepagelogo" src={homepagelogo} ></img>
             <div>
                 <div>
                     {userAdmin === 'admin' && 

@@ -4,10 +4,7 @@ import cookies from "js-cookie";
 import ProfileHeader from './ProfileHeader'
 
 function Profile() {
-
-	const token = cookies.get('token');
-	const id = cookies.get('id');
-
+	
 	const userInfo = JSON.parse(localStorage.getItem('profile'));
 	const userNormal = userInfo.role;
 	
@@ -16,6 +13,8 @@ function Profile() {
 	const [userInformation, setuserInformation] = useState([]);
 
 	useEffect(() => {
+		const token = cookies.get('token');
+		const id = cookies.get('id');
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 		axios.get(`http://localhost:3000/api/user/myprofile/${id}`)
         .then(result => {
@@ -39,6 +38,8 @@ function Profile() {
 	};
 
 	const handleDeleteUser = () => {
+		const token = cookies.get('token');
+		const id = cookies.get('id');
 		axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
 		axios.delete(`http://localhost:3000/api/user/${id}`)
 		.then(response => {

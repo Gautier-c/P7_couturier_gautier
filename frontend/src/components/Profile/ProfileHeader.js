@@ -1,4 +1,5 @@
 import React from "react";
+import homepagelogo from '../../logo/icon-left-font-monochrome-white.png'
 
 const handleReturn = () => {
     window.location = "/feed";
@@ -7,7 +8,9 @@ const handleReturn = () => {
 function ProfileHeader() {
     return (
         <div>
-            <h1 className="groupomania-title">Groupomania social network</h1>
+            <div className="Homepageheader">
+                <img className="homepagelogo" src={homepagelogo} ></img>
+            </div>  
             <div>
                 <button 
                     type="button"

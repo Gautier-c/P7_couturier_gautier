@@ -8,11 +8,17 @@ html{
  rgba(0, 0, 0, 0.65)
  ),url("../src/buildings-205986_1920.jpg");
  background-size:cover;
- background-repeat:no-repeat;
+ background-repeat:repeat;
  color: white;
  height: 100%;
 }
-
+body {
+  margin: 0;
+    padding: 0;
+}
+.feeddiv {
+  background-color:  rgba(48,48,48);
+}
 h1 {
   text-align: center;
 }
@@ -68,6 +74,9 @@ button:hover {
 }
 
 /* FEED */
+.link {
+  font-size: 1.5em;
+}
 #feed-container {
   display: flex;
   flex-direction: column;
@@ -82,7 +91,7 @@ button:hover {
 .grid-container {
   color: rgb(025, 043, 074);
   background-color:rgb(174, 174, 175);
-  width: 55%;
+  width: 38%;
   margin-bottom: 5%;
 }
 
@@ -99,9 +108,22 @@ button:hover {
   margin-bottom: 5%;
   font-size: 60px;
 }
+.btn-comment {
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
 
 
 /* LOGIN SIGNUP */
+
+.homepagelogo {
+  width :25%;
+  margin-top: -5%;
+  margin-bottom: -10%;
+}
+.social-network {
+  font-size: 2.5em;
+}
 .form-connect {
   margin-bottom: 5%;
 }
@@ -170,4 +192,68 @@ span:hover:after {
 .button-delete-account button{
   background-color: red;
   margin-left: 80%;
+}
+
+/* ADMIN */
+.admin-container {
+  display: flex;
+  justify-content: space-around;
+  
+}
+.admin-publications {
+  width: 40%;
+
+}
+.pub-container {
+  background-color: rgb(174, 174, 175);
+  color :  rgb(025, 043, 074);
+}
+.admin-comments {
+  width: 40%;
+}
+.com-container {
+  background-color:  rgb(174, 174, 175);
+  color :  rgb(025, 043, 074);
+}
+
+@media all and (max-width: 600px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .homepagelogo {
+    margin-top: -20%;
+    margin-bottom: -30%;
+  }
+  .social-network {
+    font-size: 1.5em;
+  }
+  #root {
+    width :75%;
+    margin: auto;
+  }
+  .homepagelogo {
+    width: 75%;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .form-control {
+    width: 90%;
+    margin: auto;
+  }
+  .form-group {
+    margin: auto;
+    width: 100%;
+    margin-bottom: 15%;
+  }
+  .btn-connect {
+    margin: auto;
+    width: 90%;
+  }
 }

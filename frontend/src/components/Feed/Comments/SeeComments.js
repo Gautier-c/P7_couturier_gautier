@@ -3,19 +3,19 @@ import axios from "axios";
 import cookies from "js-cookie";
 import CommentsHeader from './CommentsHeader';
 import Comment from './Comment'
-import DisplayComments from './DisplayComments'
+import DisplayComments from './DisplayComments';
+import * as moment from 'moment';
+import 'moment/locale/fr';
 
 function SeeComments() {
-
-    const token = cookies.get('token');
-    
-    var id = window.location.href.split('=').reverse()[0]
 
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
 	const [publicationId, setPublicationId] = useState([]);
 
 	useEffect(() => {
+        const token = cookies.get('token');
+        const id = window.location.href.split('=').reverse()[0]
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 		axios.get(`http://localhost:3000/api/publications/${id}`)
         .then(result => {
@@ -39,22 +39,21 @@ function SeeComments() {
 		} else {	
 	
 		return (
-            <div>
+            <div className="feeddiv">
                 <CommentsHeader />
                 <div id="feed-container">
                     {publicationId.map(item => (     
                         <div className="grid-container" >
                             <div className="infos"  >
-                                <div className="title">
-                                    <h3>{item.title}</h3>
-                                    
+                                <div className="date">
+                                    {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}
                                 </div>
                                 <div className="name">
                                     <p className="authorname">{item.authorfirstname} {item.authorname}</p>
                                 </div>
                             </div>
                             <div className="image">
-                                <img className="img-container" src={`${item.attachment}`}></img>
+                                <img className="img-container" src={`${item.attachment}`} alt="img-publication"></img>
                             </div>
                         </div>
                     ))}                     

@@ -3,15 +3,17 @@ import { NavLink } from "react-router-dom";
 import FeedHeader from "./FeedHeader";
 import axios from "axios";
 import cookies from "js-cookie";
+import * as moment from 'moment';
+import 'moment/locale/fr';
 
 function Feed() {
 
-    const token = cookies.get('token');
 	const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [publications, setPublications] = useState([]);
 
     useEffect(() => {
+        const token = cookies.get('token');
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
         axios.get("http://localhost:3000/api/publications/")
         .then(result => {
@@ -38,19 +40,22 @@ function Feed() {
         return <div>Chargement...</div>;
       } else {
       return (
-        <div>
+        <div className="feeddiv">
             <div>
                 <FeedHeader />
                 <div>
-                    <h1>Retrouvez toutes les publications ci dessous :</h1>
+                    <h1>Fil d'actualité Groupomania</h1>
                 </div>
                 <div className="homepage-link">
-					<NavLink to="/publish"><span className="link">Publiez sur le mur ? Un clic par ici !</span></NavLink>
+					<NavLink to="/publish"><span className="link">Pour publier sur le mur, cliquez ICI</span></NavLink>
 				</div>
             </div>
             <div id="feed-container">
                 {publications.map(item => (     
                     <div className="grid-container" >
+                        <div className="date">
+                            {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                        </div>
                         <div className="infos"  >
                             <div className="title">
                                 <h3>{item.title}</h3>
@@ -61,14 +66,14 @@ function Feed() {
                             </div>
                         </div>
                         <div className="image">
-                            <img className="img-container" src={`${item.attachment}`}></img>
+                            <img className="img-container" src={`${item.attachment}`} alt="img-publication"></img>
                         </div>
                         <button
-                                    id={item.id}
-                                    onClick={handleClick}
-                                >
-                                Voir les commentaires
-                                </button>
+                            id={item.id}
+                            onClick={handleClick}
+                        >
+                            Voir les commentaires
+                        </button>
                     </div>
                 ))}                     
             </div>

@@ -10,7 +10,6 @@ function Publish() {
 	const userInfo = JSON.parse(localStorage.getItem('profile'));
 	const userName = userInfo.name;
 	const userFirstname = userInfo.firstname;
-	const userRole = userInfo.role
 
 	const [Publish, setPublish] = useState({
         authorname: userName,

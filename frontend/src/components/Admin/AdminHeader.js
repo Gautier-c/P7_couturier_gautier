@@ -1,9 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import cookies from "js-cookie";
+import homepagelogo from '../../logo/icon-left-font-monochrome-white.png'
 
 function AdminHeader() {
-
 
     const handleReturn = () => {
         window.location = "/feed";
@@ -16,7 +15,7 @@ function AdminHeader() {
  
     return (
         <div>
-            <h1 className="groupomania-title">Groupomania social network</h1>
+            <img className="homepagelogo" src={homepagelogo} ></img>
             <div>
                 <div>
                     <button 

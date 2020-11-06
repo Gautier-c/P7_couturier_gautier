@@ -14,13 +14,14 @@ function AdminBoard() {
     const userInfo = JSON.parse(localStorage.getItem('profile'));
     const userAdmin = userInfo.role;
 
-    const token = cookies.get('token');
+    
 	const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [publications, setPublications] = useState([]);
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
+        const token = cookies.get('token');
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
         axios.get("http://localhost:3000/api/publications/")
         .then(result => {
@@ -36,6 +37,7 @@ function AdminBoard() {
     }, []);
 
     useEffect(() => {
+        const token = cookies.get('token');
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
         axios.get("http://localhost:3000/api/comments/")
         .then(result => {
@@ -51,6 +53,7 @@ function AdminBoard() {
     }, []);
 
     const handleDeletePublication = (e) => {
+        const token = cookies.get('token');
         const id = e.currentTarget.id
         console.log(id)
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
@@ -65,6 +68,7 @@ function AdminBoard() {
     };
 
     const handleDeleteComment = (e) => {
+        const token = cookies.get('token');
         const commentId = e.currentTarget.id
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
 		axios.delete(`http://localhost:3000/api/comments/${commentId}`)
@@ -83,7 +87,7 @@ function AdminBoard() {
           return <div>Chargement...</div>;
     } else {
         return (
-           <div>
+           <div className="feeddiv">
                {userAdmin === 'user' && 
                    <div>
                        <h3>Alors on est pas admin ?</h3>
@@ -97,70 +101,72 @@ function AdminBoard() {
                     <div>
                         <AdminHeader />
                     </div>
-                        <h2>Espace admin : Vous pouvez supprimer des publications et/ou des commentaires </h2>
-                    <div>
-                        <h4>Listes des publications :</h4>
-                        {publications.map(item => (     
-                            <div className="grid-container" >
-                                <div className="title">
-                                    <p>Crée le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
-                                    <p>Créateur : {item.authorfirstname}{item.authorname}</p>
-                                    <h3 className="content">{item.title}</h3>                               
-                                </div>
-                                <div className="name">
-                                    <p className="content">{item.content} </p>
-                                    <img src={`${item.attachment}`}></img>
-                                </div>
-                                <Popup trigger={<button >Supprimer la publication</button>} position="right center">
-                                    <div>
+                        <h2>Espace ADMIN : Vous pouvez supprimer des publications et/ou des commentaires </h2>
+                    <div className="admin-container">
+                        <div className="admin-publications">
+                            <h4>Liste des dernières publications :</h4>
+                            {publications.map(item => (     
+                                <div className="pub-container" >
+                                    <div className="title">
+                                        <p>Créé le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
+                                        <p>Créateur : {item.authorfirstname} {item.authorname}</p>
+                                        <h3 className="content">{item.title}</h3>                               
+                                    </div>
+                                    <div className="name">
+                                        <p className="content">{item.content} </p>
+                                        <img className="img-container" src={`${item.attachment}`} alt="img-publications"></img>
+                                    </div>
+                                    <Popup trigger={<button >Supprimer la publication</button>} position="right center">
                                         <div>
-                                            <h4 className="popup-title">Attention vous allez supprimer cette publication</h4>
-                                        </div>
-                                        <div>
-                                            <button
-                                                type="button"
-                                                id={item.id}
-                                                onClick={handleDeletePublication}
-                                                className="btn-myaccount"
-                                            >
-                                                Confirmer
-                                            </button>
-                                        </div>
-                                    </div>                  
-                                </Popup>
-                            </div>
-                        ))}
-                    </div>
-                    <div>
-                        <h4>Listes des commentaire</h4>
-                        {comments.map(item => (     
-                            <div className="grid-container" >
-                                <div className="comment-title">
-                                    <p>Crée le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
-                                    <p>Créateur : {item.authorfirstname} {item.authorname}</p>                              
+                                            <div>
+                                                <h4 className="popup-title">Attention vous allez supprimer cette publication</h4>
+                                            </div>
+                                            <div>
+                                                <button
+                                                    type="button"
+                                                    id={item.id}
+                                                    onClick={handleDeletePublication}
+                                                    className="btn-myaccount"
+                                                >
+                                                    Confirmer
+                                                </button>
+                                            </div>
+                                        </div>                  
+                                    </Popup>
                                 </div>
-                                <div className="name">
-                                    <p className="content">{item.commentary} </p>
+                            ))}
+                        </div>
+                        <div className="admin-comments">
+                            <h4>Liste des derniers commentaires :</h4>
+                            {comments.map(item => (     
+                                <div className="com-container" >
+                                    <div className="comment-title">
+                                        <p>Crée le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
+                                        <p>Créateur : {item.authorfirstname} {item.authorname}</p>                              
+                                    </div>
+                                    <div className="name">
+                                        <p className="content">Commentaire : {item.commentary} </p>
+                                    </div>
+                                    <Popup trigger={<button >Supprimer le commentaire</button>} position="right center">
+                                        <div>
+                                            <div>
+                                                <h4 className="popup-title">Attention vous allez supprimer ce commentaire</h4>
+                                            </div>
+                                            <div>
+                                                <button
+                                                    type="button"
+                                                    id={item.id}
+                                                    onClick={handleDeleteComment}
+                                                    className="btn-myaccount"
+                                                >
+                                                    Confirmer
+                                                </button>
+                                            </div>
+                                        </div>                  
+                                    </Popup>
                                 </div>
-                                <Popup trigger={<button >Supprimer le commentaire</button>} position="right center">
-                                    <div>
-                                        <div>
-                                            <h4 className="popup-title">Attention vous allez supprimer ce commentaire</h4>
-                                        </div>
-                                        <div>
-                                            <button
-                                                type="button"
-                                                id={item.id}
-                                                onClick={handleDeleteComment}
-                                                className="btn-myaccount"
-                                            >
-                                                Confirmer
-                                            </button>
-                                        </div>
-                                    </div>                  
-                                </Popup>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
                 }

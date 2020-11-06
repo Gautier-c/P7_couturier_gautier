@@ -5,6 +5,9 @@ const userRoutes = require('./routes/user');
 const commentsRoutes = require('./routes/comments');
 const connect = require('./mysqlDbConnect');
 const path = require('path');
+const helmet = require("helmet");
+const rateLimit = require('express-rate-limit');
+const xss = require('xss-clean');
 const app = express();
 
 app.use((req, res, next) => {
@@ -23,6 +26,15 @@ connect.connect(function(err){
     }
 });
 
+const limit = rateLimit({
+    max: 20,// max requests
+    windowMs: 60 * 60 * 1000, // 1 Hour of 'ban' / lockout 
+    message: 'Too many requests' // message to send
+  });
+
+
+app.use(xss());
+app.use(helmet());
 app.use(bodyparser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/publications', publicationsRoutes);
