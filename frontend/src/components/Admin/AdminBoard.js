@@ -8,9 +8,6 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import * as moment from 'moment';
 import 'moment/locale/fr';
-import DeletePublications from './DeletePublications';
-import DeleteComments from './DeleteComments';
-
 
 function AdminBoard() {
 
@@ -53,6 +50,21 @@ function AdminBoard() {
         )
     }, []);
 
+    const handleDeleteComment = (e) => {
+        const id = e.currentTarget.id
+        console.log(id)
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+		axios.delete(`http://localhost:3000/api/comments/${id}`)
+		.then(response => {
+			setTimeout(() => {
+				window.location = "/";
+			}, 1000);
+            window.location = "/adminArea";
+		})
+		.catch(err => setError(true));
+    };
+ 
+
 
 
     if (error) {
@@ -89,9 +101,9 @@ function AdminBoard() {
                                     <p className="content">{item.content} </p>
                                     <img src={`${item.attachment}`}></img>
                                 </div>
-                                <Popup trigger={<button>Supprimer la publication</button>} position="right center">
+                                <Popup trigger={<button id={item.id}>Supprimer la publication</button>} position="right center">
                                     <div>
-                                        <DeletePublications />
+                                        
                                     </div>                  
                                 </Popup>
                             </div>
@@ -101,16 +113,28 @@ function AdminBoard() {
                         <h4>Listes des commentaire</h4>
                         {comments.map(item => (     
                             <div key={item.id} className="grid-container" >
-                                <div className="title" id={item.id}>
+                                <div className="comment-title" id={item.id}>
                                     <p>Crée le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
                                     <p>Créateur : {item.authorfirstname} {item.authorname}</p>                              
                                 </div>
                                 <div className="name">
                                     <p className="content">{item.commentary} </p>
                                 </div>
-                                <Popup trigger={<button>Supprimer le commentaire</button>} position="right center">
+                                <Popup trigger={<button >Supprimer le commentaire</button>} position="right center">
                                     <div>
-                                        <DeleteComments />
+                                        <div>
+                                            <h4 className="popup-title">Attention vous allez supprimer ce commentaire</h4>
+                                        </div>
+                                        <div>
+                                            <button
+                                                type="button"
+                                                id={item.id}
+                                                onClick={handleDeleteComment}
+                                                className="btn-myaccount"
+                                            >
+                                                Confirmer
+                                            </button>
+                                        </div>
                                     </div>                  
                                 </Popup>
                             </div>

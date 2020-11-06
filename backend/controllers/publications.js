@@ -1,4 +1,5 @@
 const conDb = require('../mysqlDbConnect');
+const mysql = require('mysql');
 const fs = require('fs');
 
 exports.getAllPublications = (req, res, next) => {
@@ -42,13 +43,34 @@ exports.getOnePublications = (req, res, next) => {
 
 
 exports.deletePublication = (req, res, next) => {
-    const publicationId = req.params.id
-    conDb.query('DELETE FROM publications WHERE id=?', publicationId, function(err,result){
+    const pool = mysql.createPool({
+        connectionLimit: 10,
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "groupomania"
+    });
+    pool.getConnection(function (err, connection){
         if (err){
-            console.log(err);
-            return res.status(400).json({ message : "Erreur interne" })
+            console.log(err)
+            return res.status(400).json("Erreur interne")
         }
-        return res.status(201).json({ message : "Publication supprimée."})
+        const publicationId = req.params.id
+        connection.query('DELETE FROM publications WHERE id=?', publicationId, function(err,result){
+            if (err){
+                console.log(err);
+                return res.status(400).json({ message : "Erreur interne" })
+            } else {
+                connection.query('DELETE FROM comments WHERE publicationid=?', publicationId, function (err, result){
+                    if (err) {
+                        console.log(err)
+                        return res.status(400).json("Erreur interne")
+                    }
+                    return res.status(201).json({ message : "Publication supprimée."})
+                })
+                connection.release();
+            }    
+        })
     })
 };
 

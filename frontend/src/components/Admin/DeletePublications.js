@@ -8,18 +8,18 @@ function DeletePublications() {
 
     const [error, setError] = useState(null);
 
-    const handleAdminDelete = () => {
-        const id = document.getElementsByClassName('title')[0].id;
+    const handleAdminDelete = (e) => {
+        const id = e.currentTarget.id
         console.log(id)
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-		axios.delete(`http://localhost:3000/api/publications/${id}`)
-		.then(response => {
-			setTimeout(() => {
-				window.location = "/";
-			}, 1000);
-            window.location = "/adminArea";
-		})
-		.catch(err => setError(true));
+        // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+		// axios.delete(`http://localhost:3000/api/publications/${id}`)
+		// .then(response => {
+		// 	setTimeout(() => {
+		// 		window.location = "/";
+		// 	}, 1000);
+        //     window.location = "/adminArea";
+		// })
+		// .catch(err => setError(true));
     };
  
     return (
