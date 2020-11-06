@@ -18,7 +18,7 @@ function ProfileHeader() {
  
     return (
         <div>
-            <img className="homepagelogo" src={homepagelogo} ></img>
+            <img className="homepagelogo" src={homepagelogo} alt="logo"></img>
             <div>
                 <div>
                     {userAdmin === 'admin' && 
