@@ -45,6 +45,9 @@ function SeeComments() {
                     {publicationId.map(item => (     
                         <div className="grid-container" >
                             <div className="infos"  >
+                                <div className="title">
+                                    <h3>{item.title}</h3>
+                                </div>
                                 <div className="date">
                                     {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}
                                 </div>
