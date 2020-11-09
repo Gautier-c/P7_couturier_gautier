@@ -55,6 +55,12 @@ exports.deletePublication = (req, res, next) => {
             console.log(err)
             return res.status(400).json("Erreur interne")
         }
+        // const filename = publications.attachment.split("/images/")[1];
+		// 	fs.unlink(`images/${filename}`, err => {
+		// 		 if (err) {
+        //             return res.status(400).json({ message : "Erreur interne" })
+        //          }
+		// 	});
         const publicationId = req.params.id
         connection.query('DELETE FROM publications WHERE id=?', publicationId, function(err,result){
             if (err){

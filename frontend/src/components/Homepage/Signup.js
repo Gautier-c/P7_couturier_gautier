@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import HomepageHeader from './HomepageHeader';
@@ -56,82 +56,84 @@ const Signup = () => (
       } = props;
 
       return (
-		<form onSubmit={handleSubmit}>
-			<HomepageHeader />
-			<h3>Remplissez le formulaire pour vous inscrire</h3>
-
-		<label htmlFor="name">name</label>
-		<input
-		  id="name"
-		  name="name"
-		  type="text"
-		  placeholder="Enter your name"
-		  value={values.name}
-		  onChange={handleChange}
-		  onBlur={handleBlur}
-		  className={errors.name && touched.name && "error"}
-		/>
-		{errors.name && touched.name && (
-  		<div className="input-feedback">{errors.name}</div>
-		)}
-
-		<label htmlFor="firstname">firstname</label>
-		<input
-		  id="firstname"
-		  name="firstname"
-		  type="text"
-		  placeholder="Enter your firstname"
-		  value={values.firstname}
-		  onChange={handleChange}
-		  onBlur={handleBlur}
-		  classfirstname={errors.firstname && touched.firstname && "error"}
-		/>
-		{errors.firstname && touched.firstname && (
-  		<div className="input-feedback">{errors.firstname}</div>
-		)}
-
-		<label htmlFor="email">Email</label>
-		<input
-		  id="email"
-		  name="email"
-		  type="text"
-		  placeholder="Enter your email"
-		  value={values.email}
-		  onChange={handleChange}
-		  onBlur={handleBlur}
-		  className={errors.email && touched.email && "error"}
-		/>
-		{errors.email && touched.email && (
-  		<div className="input-feedback">{errors.email}</div>
-		)}
-  
-		<label htmlFor="password">Password</label>
-		<input
-		  id="password"
-		  name="password"
-		  type="password"
-		  placeholder="Enter your password"
-		  value={values.password}
-		  onChange={handleChange}
-		  onBlur={handleBlur}
-		  className={errors.password && touched.password && "error"}
-		/>
-		{errors.password && touched.password && (
-  		<div className="input-feedback">{errors.password}</div>
-		)}
-
-  
-		<button type="submit" disabled={isSubmitting}>
-		  S'inscrire
-		</button>
 		<div>
-			<p>Vous avez déjà un compte ?</p>
-			<div className="homepage-link">
-				<NavLink to="/"><span className="link">Cliquez ici !</span></NavLink>
-			</div>
-		</div>
-  
-	  </form>
+			<HomepageHeader />
+			<form onSubmit={handleSubmit}>
+					
+					<h3>Remplissez le formulaire pour vous inscrire</h3>
+
+				<label htmlFor="name">name</label>
+				<input
+				id="name"
+				name="name"
+				type="text"
+				placeholder="Enter your name"
+				value={values.name}
+				onChange={handleChange}
+				onBlur={handleBlur}
+				className={errors.name && touched.name && "error"}
+				/>
+				{errors.name && touched.name && (
+				<div className="input-feedback">{errors.name}</div>
+				)}
+
+				<label htmlFor="firstname">firstname</label>
+				<input
+				id="firstname"
+				name="firstname"
+				type="text"
+				placeholder="Enter your firstname"
+				value={values.firstname}
+				onChange={handleChange}
+				onBlur={handleBlur}
+				classfirstname={errors.firstname && touched.firstname && "error"}
+				/>
+				{errors.firstname && touched.firstname && (
+				<div className="input-feedback">{errors.firstname}</div>
+				)}
+
+				<label htmlFor="email">Email</label>
+				<input
+				id="email"
+				name="email"
+				type="text"
+				placeholder="Enter your email"
+				value={values.email}
+				onChange={handleChange}
+				onBlur={handleBlur}
+				className={errors.email && touched.email && "error"}
+				/>
+				{errors.email && touched.email && (
+				<div className="input-feedback">{errors.email}</div>
+				)}
+		
+				<label htmlFor="password">Password</label>
+				<input
+				id="password"
+				name="password"
+				type="password"
+				placeholder="Enter your password"
+				value={values.password}
+				onChange={handleChange}
+				onBlur={handleBlur}
+				className={errors.password && touched.password && "error"}
+				/>
+				{errors.password && touched.password && (
+				<div className="input-feedback">{errors.password}</div>
+				)}
+
+		
+				<button type="submit" disabled={isSubmitting}>
+				S'inscrire
+				</button>
+				<div>
+					<p>Vous avez déjà un compte ?</p>
+					<div className="homepage-link">
+						<NavLink to="/"><span className="link">Cliquez ici !</span></NavLink>
+					</div>
+				</div>
+			</form>
+	  </div>
       );
     }}
   </Formik>
