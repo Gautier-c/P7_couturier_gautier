@@ -8,5 +8,4 @@ router.post('/login', userCtrl.login);              //Route connexion utilisateu
 router.get('/myprofile/:id', auth,userCtrl.getOneUser);
 router.delete('/:id', auth, userCtrl.deleteUser);   //Route suppression utilisateur
 
-
 module.exports = router;

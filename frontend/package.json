@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "cookie-parser": "^1.4.5",
     "email-validator": "^2.0.4",
-    "formik": "^2.2.1",
+    "formik": "^2.2.3",
     "js-cookie": "^2.2.1",
     "query-string": "^6.13.6",
     "react": "^17.0.1",

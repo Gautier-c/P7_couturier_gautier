@@ -3,93 +3,139 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 import HomepageHeader from './HomepageHeader';
 
-function Signup() {
-	const [Signup, setSignup] = useState({
+import { Formik } from "formik";
+import * as Yup from "yup";
+
+const Signup = () => (
+  <Formik
+    initialValues={{
+		name: "",
+		firstname: "",
 		email: "",
 		password: "",
-		name: "",
-		firstname:"",
 		role: "user"
-	});
-	const submitHandler = e => {
-		e.preventDefault();
-		axios.post("http://localhost:3000/api/user/signup", Signup)
+	 }}
+    onSubmit={(values, { setSubmitting }) => {
+		axios.post("http://localhost:3000/api/user/signup",values )
 			.then(res => {
 				window.location = "/";
 			})
 			.catch(error => {
-				alert({ error: Signup.error });
+				alert({ error });
 			});
-	};
-	if (Signup.username === null) {
-		console.log("connexion impossible");
-	}
 
-	return (
-		
-		<div>
+      setTimeout(() => {
+        console.log("Logging in", values);
+        setSubmitting(false);
+      }, 500);
+	}}
+	
+	validationSchema={Yup.object().shape({
+		name: Yup.string()
+		  .required("Requis."),
+		firstname: Yup.string()
+		  .required("Requis."),
+		email: Yup.string()
+		  .email()
+		  .required("Requis."),
+		password: Yup.string()
+		  .required("Aucun mot de passe.")
+		  .min(5, "Mot de passe trop court - 5 caractéres minimum")
+		  .matches(/(?=.*[0-9])/, "Doit contenir un chiffre.")
+	  })}
+  >
+    {props => {
+      const {
+        values,
+        touched,
+        errors,
+        isSubmitting,
+        handleChange,
+        handleBlur,
+        handleSubmit
+      } = props;
+
+      return (
+		<form onSubmit={handleSubmit}>
 			<HomepageHeader />
 			<h3>Remplissez le formulaire pour vous inscrire</h3>
-			<form onSubmit={submitHandler}>
-				<div className="form-group">
-					<label htmlFor="email">Email :</label>
-					<input
-						type="email"
-						className="form-control"
-						name="email"
-						id="email"
-						value={Signup.email}
-						onChange={e => setSignup({ ...Signup, email: e.target.value })}
-						aria-describedby="emailHelp"
-						placeholder="Votre email ..."
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="password">Mot de passe :</label>
-					<input
-						type="password"
-						className="form-control"
-						name="password"
-						id="password"
-						value={Signup.password}
-						onChange={e => setSignup({ ...Signup, password: e.target.value })}
-						placeholder="Votre mot de passe ..."
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="name">Nom :</label>
-					<input
-						type="name"
-						className="form-control"
-						name="name"
-						id="name"
-						value={Signup.name}
-						onChange={e => setSignup({ ...Signup, name: e.target.value })}
-						placeholder="Votre nom ..."
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="firstname">Prénom :</label>
-					<input
-						type="firstname"
-						className="form-control"
-						name="firstname"
-						id="firstname"
-						value={Signup.firstname}
-						onChange={e => setSignup({ ...Signup, firstname: e.target.value })}
-						placeholder="Votre prénom ..."
-					/>
-				</div>
-				<button type="submit" className="btn btn-danger">
-					S'inscrire
-				</button>
-				<p>Vous avez déjà un compte ?</p>
-				<div className="homepage-link">
-					<NavLink to="/"><span className="link">Cliquez ici !</span></NavLink>
-				</div>
-			</form>
+
+		<label htmlFor="name">name</label>
+		<input
+		  id="name"
+		  name="name"
+		  type="text"
+		  placeholder="Enter your name"
+		  value={values.name}
+		  onChange={handleChange}
+		  onBlur={handleBlur}
+		  className={errors.name && touched.name && "error"}
+		/>
+		{errors.name && touched.name && (
+  		<div className="input-feedback">{errors.name}</div>
+		)}
+
+		<label htmlFor="firstname">firstname</label>
+		<input
+		  id="firstname"
+		  name="firstname"
+		  type="text"
+		  placeholder="Enter your firstname"
+		  value={values.firstname}
+		  onChange={handleChange}
+		  onBlur={handleBlur}
+		  classfirstname={errors.firstname && touched.firstname && "error"}
+		/>
+		{errors.firstname && touched.firstname && (
+  		<div className="input-feedback">{errors.firstname}</div>
+		)}
+
+		<label htmlFor="email">Email</label>
+		<input
+		  id="email"
+		  name="email"
+		  type="text"
+		  placeholder="Enter your email"
+		  value={values.email}
+		  onChange={handleChange}
+		  onBlur={handleBlur}
+		  className={errors.email && touched.email && "error"}
+		/>
+		{errors.email && touched.email && (
+  		<div className="input-feedback">{errors.email}</div>
+		)}
+  
+		<label htmlFor="password">Password</label>
+		<input
+		  id="password"
+		  name="password"
+		  type="password"
+		  placeholder="Enter your password"
+		  value={values.password}
+		  onChange={handleChange}
+		  onBlur={handleBlur}
+		  className={errors.password && touched.password && "error"}
+		/>
+		{errors.password && touched.password && (
+  		<div className="input-feedback">{errors.password}</div>
+		)}
+
+  
+		<button type="submit" disabled={isSubmitting}>
+		  S'inscrire
+		</button>
+		<div>
+			<p>Vous avez déjà un compte ?</p>
+			<div className="homepage-link">
+				<NavLink to="/"><span className="link">Cliquez ici !</span></NavLink>
+			</div>
 		</div>
-	);
-}
+  
+	  </form>
+      );
+    }}
+  </Formik>
+
+);
 
 export default Signup;
