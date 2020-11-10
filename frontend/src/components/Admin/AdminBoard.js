@@ -90,9 +90,9 @@ function AdminBoard() {
            <div className="feeddiv">
                {userAdmin === 'user' && 
                    <div>
-                       <h3>Alors on est pas admin ?</h3>
-                       <NavLink to="/feed">
-                            <p>Clic ici avant que le FBI arrive</p>
+                        <h3>Vous n'êtes pas admin !</h3>
+                        <NavLink to="/feed">
+                            <span className="link">Clic ICI pour retourner à l'accueil.</span>
                         </NavLink>
                    </div>
                 }
