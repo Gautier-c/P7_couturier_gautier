@@ -1,26 +1,16 @@
-_Projet_ _7_ _Openclassrooms_ 
+# Projet 7 Openclassroom.  
+    Réalisation d'un réseau social pour l'entreprise Groupomania.  
 
-Création d'un réseau social d’entreprise
+## Technologies utilisées :
+    * mySql
+    * Node.js
+    * React.js
 
-Technologies utilisées:
+## Procédure d'installation :  
+    * Importer le fichier "groupomania.sql" situé dans le dossier backend dans votre gestionnaire de BDD.  
+    * Créer un fichier .env dans le backend, en vous basant sur le fichier .env.exemple  
+    * Placer vous dans le dossier backend et éxécuter la commande : "nodemon server"  
+    * Placer vous dans le dossier frontend et éxécuter la commande : "yarn start"
 
-React, Node.js, Express, MySQL
-
-Utilisation de l'application :
-
-Importer la BDD: 
-
-Fichier dans le dossier backend : - groupomania.sql
-
-Créer un fichier .env en recopiant le fichier .env.exemple
-
-Placer vous dans le dossier backend et exécuter la commande : 
-
-nodemon server
-
-Placer vous dans le dossier frontend et éxécuter la commande :
-
-yarn start
-
-Une nouvelle page de votre nagivateur doit s'ouvrir automatiquement sur le port :4200.
-Si la page ne s'ouvre pas allz sur ce lien : http://localhost:4200/
+Une nouvelle page sur votre navigateur doit s'ouvrir sur le port :4200.
+Si rien ne passe allez sur ce lien : http://localhost:4200/
