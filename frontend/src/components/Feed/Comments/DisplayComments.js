@@ -38,19 +38,17 @@ function DisplayComments() {
         <div>
             <div>
                 {comments.map(item => (
-                    <div>
-                        <div id="feed-container">    
-                            <div className="grid-container" >
-                                <div className="infos"  >
-                                    <div className="name">
-                                        {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}
-                                        <p className="authorname">{item.authorfirstname} {item.authorname}</p>
-                                        <p>{item.commentary}</p>
-                                    </div>
+                    <div key={item.id} className="feed-container">    
+                        <div className="grid-container" >
+                            <div key={item.authorid}className="infos"  >
+                                <div key={item.authorname} className="name">
+                                    {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                                    <p className="authorname">{item.authorfirstname} {item.authorname}</p>
+                                    <p>{item.commentary}</p>
                                 </div>
                             </div>
                         </div>
-                    </div>           
+                    </div>        
                 ))} 
             </div>  
         </div>       

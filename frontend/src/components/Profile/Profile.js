@@ -61,21 +61,21 @@ function Profile() {
 	
 		return (
 			<div className="container-fluid">
-				<div className="header">
+				<div key="header" className="header">
 					<ProfileHeader />
-					<div>
+					<div key="myprofile">
 						<h2 className="myprofile">Informations de votre profil :</h2>
 					</div>
-					<div className="user-information">
-					{userInformation.map(item => (
-						<div className="profile-info">
-							<div className ="name">
-								<h4>Nom : {item.name}</h4>
-								<h4>Prénom : {item.firstname}</h4>
-								<h4>Email : {item.email}</h4>
+					<div key="user-information" className="user-information">
+						{userInformation.map(item => (
+							<div key ={item.id} className="profile-info">
+								<div className ="name">
+									<h4>Nom : {item.name}</h4>
+									<h4>Prénom : {item.firstname}</h4>
+									<h4>Email : {item.email}</h4>
+								</div>
 							</div>
-						</div>
-					))}	
+						))}	
 					</div>
 					<div className="button-profile">
 						<div className="button-disconnect">

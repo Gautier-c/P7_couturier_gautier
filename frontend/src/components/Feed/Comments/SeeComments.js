@@ -41,9 +41,9 @@ function SeeComments() {
 		return (
             <div className="feeddiv">
                 <CommentsHeader />
-                <div id="feed-container">
+                <div className="feed-container">
                     {publicationId.map(item => (     
-                        <div className="grid-container" >
+                        <div key={item.id} className="grid-container" >
                             <div className="infos"  >
                                 <div className="title">
                                     <h3>{item.title}</h3>

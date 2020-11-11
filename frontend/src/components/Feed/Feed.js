@@ -53,20 +53,20 @@ function Feed() {
             </div>
             <div id="feed-container">
                 {publications.map(item => (     
-                    <div className="grid-container" >
-                        <div className="date">
+                    <div key={item.id} className="grid-container" >
+                        <div key="date" className="date">
                             {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}
                         </div>
-                        <div className="infos"  >
-                            <div className="title">
+                        <div key="infos" className="infos"  >
+                            <div key="title" className="title">
                                 <h3>{item.title}</h3>
                                 
                             </div>
-                            <div className="name">
+                            <div key="name" className="name">
                                 <p className="authorname">{item.authorfirstname} {item.authorname}</p>
                             </div>
                         </div>
-                        <div className="image">
+                        <div key="img" className="image">
                             <img className="img-container" src={`http://localhost:3000/images/${item.attachment}`} alt="img-publication"></img>
                         </div>
                         <button

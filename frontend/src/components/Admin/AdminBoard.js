@@ -87,9 +87,9 @@ function AdminBoard() {
           return <div>Chargement...</div>;
     } else {
         return (
-           <div className="feeddiv">
+           <div key="admin-feed" className="feeddiv">
                {userAdmin === 'user' && 
-                   <div>
+                   <div key="user">
                         <h3>Vous n'êtes pas admin !</h3>
                         <NavLink to="/feed">
                             <span className="link">Clic ICI pour retourner à l'accueil.</span>
@@ -102,11 +102,11 @@ function AdminBoard() {
                         <AdminHeader />
                     </div>
                         <h2>Espace ADMIN : Vous pouvez supprimer des publications et/ou des commentaires </h2>
-                    <div className="admin-container">
-                        <div className="admin-publications">
+                    <div key="container" className="admin-container">
+                        <div key ="publications" className="admin-publications">
                             <h4>Liste des dernières publications :</h4>
                             {publications.map(item => (     
-                                <div className="pub-container" >
+                                <div key={item.id} className="pub-container" >
                                     <div className="title">
                                         <p>Créé le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
                                         <p>Créateur : {item.authorfirstname} {item.authorname}</p>
@@ -136,10 +136,10 @@ function AdminBoard() {
                                 </div>
                             ))}
                         </div>
-                        <div className="admin-comments">
+                        <div key="comments" className="admin-comments">
                             <h4>Liste des derniers commentaires :</h4>
                             {comments.map(item => (     
-                                <div className="com-container" >
+                                <div key={item.id} className="com-container" >
                                     <div className="comment-title">
                                         <p>Crée le : {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}</p>
                                         <p>Créateur : {item.authorfirstname} {item.authorname}</p>                              

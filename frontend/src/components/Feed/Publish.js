@@ -66,17 +66,15 @@ function Publish() {
 					/>
 				</div>
 				<div className="form-group">
-					<form >
-						<div className="file-upload">
-							<input
-								type="file"
-								className="attachment"
-								name="attachment"
-								id="attachment"
-								onChange={e => setPublish({ ...Publish, attachment: e.target.files[0] })}
-							/>
-                		</div>
-      				</form>				
+					<div className="file-upload">
+						<input
+							type="file"
+							className="attachment"
+							name="attachment"
+							id="attachment"
+							onChange={e => setPublish({ ...Publish, attachment: e.target.files[0] })}
+						/>
+                	</div>
 				</div>		
 				<button type="submit" className="btn btn-danger">
 					Publier
