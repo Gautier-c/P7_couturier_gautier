@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config();
 const conDb = require('../mysqlDbConnect');
 const mysql = require('mysql');
 const fs = require('fs');
@@ -45,10 +46,10 @@ exports.getOnePublications = (req, res, next) => {
 exports.deletePublication = (req, res, next) => {
     const pool = mysql.createPool({
         connectionLimit: 10,
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "groupomania"
+        host: process.env.HOST,
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        database: process.env.DB
     });
     pool.getConnection(function (err, connection){
         if (err){

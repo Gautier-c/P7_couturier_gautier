@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 09 nov. 2020 à 10:18
+-- Généré le : mer. 11 nov. 2020 à 15:56
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.2.34
 
@@ -31,8 +31,8 @@ CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `authorname` varchar(255) NOT NULL,
   `authorfirstname` varchar(255) NOT NULL,
-  `authorid` varchar(255) NOT NULL,
-  `publicationid` varchar(255) NOT NULL,
+  `authorid` int(11) NOT NULL,
+  `publicationid` int(11) NOT NULL,
   `commentary` varchar(255) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -42,17 +42,12 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `authorname`, `authorfirstname`, `authorid`, `publicationid`, `commentary`, `date`) VALUES
-(18, 'Célair', 'Jacques', '13', '48', 'Oh non pas Batman ! Je préfère Superman !', '2020-11-06 14:00:18'),
-(19, 'Raque', 'Eric', '12', '50', 'Magnifique photo Jacques ! Tu nous raconteras à ton retour pendant la pause café !', '2020-11-06 14:06:33'),
-(20, 'Raque', 'Eric', '12', '48', 'Moi je veux bien sa Batmobile si c\'est possible !', '2020-11-06 14:07:03'),
-(21, 'Caman', 'Medhi', '15', '51', 'Tu vas pouvoir faire des heures sup :D', '2020-11-06 14:07:49'),
-(22, 'Caman', 'Medhi', '15', '48', 'J\'adore l\'univers Batman, mais uniquement avec le Joker !', '2020-11-06 14:08:21'),
-(23, 'Caman', 'Medhi', '15', '50', 'Très jolie !', '2020-11-06 14:08:36'),
-(24, 'Freichi', 'Sarah', '14', '51', 'Rien que ça ?', '2020-11-06 14:09:07'),
-(25, 'Freichi', 'Sarah', '14', '50', 'On veut plus de photos comme ça !!!!! Trop beau !', '2020-11-06 14:09:33'),
-(26, 'Freichi', 'Sarah', '14', '52', 'Si tu ne finis pas, tu sais à qui penser !', '2020-11-06 14:12:21'),
-(27, 'Célair', 'Jacques', '13', '52', 'MIAM !', '2020-11-06 14:12:43'),
-(29, 'Couturier', 'Gautier', '16', '52', 'Oh non j\'ai raté ça !', '2020-11-08 13:24:09');
+(62, 'Célair', 'Jacques', 13, 71, 'Vive Batman !!', '2020-11-11 15:49:29'),
+(64, 'Caman', 'Medhi', 15, 71, 'Je suis team Superman.', '2020-11-11 15:50:37'),
+(67, 'Caman', 'Medhi', 15, 74, 'Ah quand même !', '2020-11-11 15:54:12'),
+(68, 'Caman', 'Medhi', 15, 75, 'Et sans colorants !!!', '2020-11-11 15:54:44'),
+(69, 'Freichi', 'Sarah', 14, 75, 'Ca donne faim !', '2020-11-11 15:55:04'),
+(70, 'Freichi', 'Sarah', 14, 74, 'En rouge c\'est plus jolie.', '2020-11-11 15:55:45');
 
 -- --------------------------------------------------------
 
@@ -64,7 +59,7 @@ CREATE TABLE `publications` (
   `id` int(11) NOT NULL,
   `authorname` varchar(255) NOT NULL,
   `authorfirstname` varchar(255) NOT NULL,
-  `authorid` varchar(255) NOT NULL,
+  `authorid` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `attachment` varchar(255) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
@@ -75,10 +70,9 @@ CREATE TABLE `publications` (
 --
 
 INSERT INTO `publications` (`id`, `authorname`, `authorfirstname`, `authorid`, `title`, `attachment`, `date`) VALUES
-(48, 'Freichi', 'Sarah', '14', 'Mon personnage de fiction', 'http://localhost:3000/images/Batman.jpg1604667127440.jpg', '2020-11-06 13:52:07'),
-(50, 'Célair', 'Jacques', '13', 'Voici une photo de mes dernières vacances :', 'http://localhost:3000/images/Vacances.jpg1604667596101.jpg', '2020-11-06 13:59:56'),
-(51, 'Raque', 'Eric', '12', 'Qui rêve d\'avoir cette voiture ? Moi OUI !!!!!', 'http://localhost:3000/images/Voiture.jpg1604667959975.jpg', '2020-11-06 14:05:59'),
-(52, 'Caman', 'Medhi', '15', 'Voici mon repas de midi ! Pour la liste des ingrédients, venez me voir a la cafétéria !', 'http://localhost:3000/images/repas.jpg1604668306563.jpg', '2020-11-06 14:11:46');
+(71, 'Freichi', 'Sarah', 14, 'Mon personnage de fiction préféré !! Et vous c\'est lequel ?', 'Batman.jpg1605106121615.jpg', '2020-11-11 15:48:41'),
+(74, 'Célair', 'Jacques', 13, 'La voiture de mes rêves :', 'Voiture.jpg1605106416750.jpg', '2020-11-11 15:53:36'),
+(75, 'Caman', 'Medhi', 15, 'La dernière sauce que j\'ai créée !', 'téléchargement_(2).jpg1605106470412.jpg', '2020-11-11 15:54:30');
 
 -- --------------------------------------------------------
 
@@ -116,13 +110,16 @@ INSERT INTO `users` (`id`, `email`, `password`, `name`, `firstname`, `createdAt`
 -- Index pour la table `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `comments_ibfk_1` (`publicationid`),
+  ADD KEY `comments_ibfk_2` (`authorid`);
 
 --
 -- Index pour la table `publications`
 --
 ALTER TABLE `publications`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `authorid` (`authorid`);
 
 --
 -- Index pour la table `users`
@@ -138,19 +135,36 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT pour la table `publications`
 --
 ALTER TABLE `publications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`publicationid`) REFERENCES `publications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`authorid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `publications`
+--
+ALTER TABLE `publications`
+  ADD CONSTRAINT `publications_ibfk_1` FOREIGN KEY (`authorid`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

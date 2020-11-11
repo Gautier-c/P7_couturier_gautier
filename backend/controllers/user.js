@@ -7,10 +7,10 @@ const mysql = require('mysql');
 exports.signup = (req, res, next) => {
     const pool = mysql.createPool({
         connectionLimit: 10,
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "groupomania"
+        host: process.env.HOST,
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        database: process.env.DB
     });
     pool.getConnection(function (err, connection){
         if (err){
