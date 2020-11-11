@@ -8,6 +8,7 @@ const path = require('path');
 const helmet = require("helmet");
 const rateLimit = require('express-rate-limit');
 const xss = require('xss-clean');
+require('dotenv').config();
 const app = express();
 
 app.use((req, res, next) => {

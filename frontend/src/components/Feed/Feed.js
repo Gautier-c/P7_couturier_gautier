@@ -31,7 +31,7 @@ function Feed() {
     const handleClick = e => {
         const valueid = e.target.id
         console.log(valueid)
-        window.location = "/publications" + "/&id=" + valueid;
+        window.location = `/publications/&id=${valueid}`
     };
 
     if (error) {

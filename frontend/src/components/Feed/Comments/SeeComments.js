@@ -56,7 +56,7 @@ function SeeComments() {
                                 </div>
                             </div>
                             <div className="image">
-                                <img className="img-container" src={`${item.attachment}`} alt="img-publication"></img>
+                                <img className="img-container" src={`http://localhost:3000/images/${item.attachment}`} alt="img-publication"></img>
                             </div>
                         </div>
                     ))}                     

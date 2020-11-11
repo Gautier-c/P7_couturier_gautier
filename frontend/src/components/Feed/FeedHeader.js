@@ -13,7 +13,7 @@ function ProfileHeader() {
 
     const handleMyAccount = () => {
         const id = cookies.get('id');
-        window.location = "/myprofile" + "/&id=" + id;
+        window.location = `/myprofile/&id=${id}`
     };
  
     return (
