@@ -13,7 +13,7 @@ exports.getAllPublications = (req, res, next) => {
 };
 
 exports.publish = (req, res, next) => {
-    const attachmentUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const attachmentUrl = req.file.filename;
     const publications = {
         authorname: req.body.authorname,
         authorfirstname: req.body.authorfirstname,

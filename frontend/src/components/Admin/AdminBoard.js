@@ -114,7 +114,7 @@ function AdminBoard() {
                                     </div>
                                     <div className="name">
                                         <p className="content">{item.content} </p>
-                                        <img className="img-container" src={`${item.attachment}`} alt="img-publications"></img>
+                                        <img className="img-container" src={`http://localhost:3000/images/${item.attachment}`} alt="img-publications"></img>
                                     </div>
                                     <Popup trigger={<button >Supprimer la publication</button>} position="right center">
                                         <div>
