@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config();
 const conDb = require('../mysqlDbConnect');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -65,7 +66,7 @@ exports.login = (req, res, next) => {
                             role: results[0].role,
                             token: jwt.sign(
                             { id: results[0].id},
-                            'pGQ6IkWDhhns7Qzqb52dsHFNJYLfZ5NO',
+                            process.env.TOKEN,
                             { expiresIn : '24h'}
                             ) 
                         })

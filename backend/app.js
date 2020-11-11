@@ -8,7 +8,6 @@ const path = require('path');
 const helmet = require("helmet");
 const rateLimit = require('express-rate-limit');
 const xss = require('xss-clean');
-require('dotenv').config();
 const app = express();
 
 app.use((req, res, next) => {
@@ -31,8 +30,7 @@ const limit = rateLimit({
     max: 20,// max requests
     windowMs: 60 * 60 * 1000, // 1 Hour of 'ban' / lockout 
     message: 'Too many requests' // message to send
-  });
-
+});
 
 app.use(xss());
 app.use(helmet());
