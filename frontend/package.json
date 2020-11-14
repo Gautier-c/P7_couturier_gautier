@@ -12,6 +12,7 @@
     "email-validator": "^2.0.4",
     "formik": "^2.2.3",
     "js-cookie": "^2.2.1",
+    "moment": "^2.29.1",
     "query-string": "^6.13.6",
     "react": "^17.0.1",
     "react-cookie": "^4.0.3",
