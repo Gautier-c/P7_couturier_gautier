@@ -44,39 +44,73 @@ exports.getOnePublications = (req, res, next) => {
 
 
 exports.deletePublication = (req, res, next) => {
-    const pool = mysql.createPool({
-        connectionLimit: 10,
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME
-    });
-    pool.getConnection(function (err, connection){
-        if (err){
+    // const pool = mysql.createPool({
+    //     connectionLimit: 10,
+    //     host: process.env.DB_HOST,
+    //     user: process.env.DB_USER,
+    //     password: process.env.DB_PASSWORD,
+    //     database: process.env.DB_NAME
+    // });
+    // pool.getConnection(function (err, connection){
+    //     if (err){
+    //         console.log(err)
+    //         return res.status(400).json("Erreur interne")
+    //     }
+    //     const publicationId = req.params.id
+    //     connection.query('SELECT * FROM publications WHERE id=?', publicationId,(err, result) => {
+    //         if (err) {
+    //             console.log(err)
+    //             return res.status(400).json("Erreur interne")
+    //         } else {
+    //             const exportResult = result;
+    //             const filename = exportResult[0].attachment
+    //             console.log(filename);
+    //             fs.unlink(`/images/${filename}`, err => {
+                    
+    //             });
+    //             console.log("test6584684")
+    //             connection.query('DELETE FROM publications WHERE id=?', publicationId, function(err,result){
+    //                 if (err){
+    //                     console.log(err);
+    //                     return res.status(400).json({ message : "Erreur interne" })
+    //                 } else {
+    //                     connection.query('DELETE FROM comments WHERE publicationid=?', publicationId, function(err,result){
+    //                         if (err){
+    //                             console.log(err);
+    //                             return res.status(400).json({ message : "Erreur interne" })
+    //                         }
+    //                         return res.status(201).json({message : 'Publication supprimé avec ses commentaires'})
+    //                     });
+    //                     connection.release();
+    //                 }
+    //             })
+    //         }     
+    //     })     
+    // })
+    const publicationId = req.params.id
+    conDb.query('SELECT * FROM publications WHERE id=?', publicationId,(err, result) => {
+        if (err) {
             console.log(err)
             return res.status(400).json("Erreur interne")
-        }
-        // const filename = publications.attachment.split("/images/")[1];
-		// 	fs.unlink(`images/${filename}`, err => {
-		// 		 if (err) {
-        //             return res.status(400).json({ message : "Erreur interne" })
-        //          }
-		// 	});
-        const publicationId = req.params.id
-        connection.query('DELETE FROM publications WHERE id=?', publicationId, function(err,result){
-            if (err){
-                console.log(err);
-                return res.status(400).json({ message : "Erreur interne" })
-            } else {
-                connection.query('DELETE FROM comments WHERE publicationid=?', publicationId, function(err,result){
+        } else {
+            const exportResult = result;
+            const filename = exportResult[0].attachment
+            fs.unlink(`images/${filename}`, () => {
+                conDb.query('DELETE FROM publications WHERE id=?', publicationId, function(err,result){
                     if (err){
                         console.log(err);
                         return res.status(400).json({ message : "Erreur interne" })
+                    } else {
+                        conDb.query('DELETE FROM comments WHERE publicationid=?', publicationId, function(err,result){
+                            if (err){
+                                console.log(err);
+                                return res.status(400).json({ message : "Erreur interne" })
+                            }
+                            return res.status(201).json({message : 'Publication supprimé avec ses commentaires'})
+                        });
                     }
-                    return res.status(201).json({message : 'Publication supprimé avec ses commentaires'})
-                });
-                connection.release();
-            }
-        })
+                })
+            });
+        }
     })
-};
+}

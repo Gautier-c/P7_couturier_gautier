@@ -6,7 +6,6 @@ const commentsRoutes = require('./routes/comments');
 const connect = require('./mysqlDbConnect');
 const path = require('path');
 const helmet = require("helmet");
-const rateLimit = require('express-rate-limit');
 const xss = require('xss-clean');
 const app = express();
 
@@ -24,12 +23,6 @@ connect.connect(function(err){
     else {
         console.log("Connection BDD Groupomania réussie")
     }
-});
-
-const limit = rateLimit({
-    max: 20,// max requests
-    windowMs: 60 * 60 * 1000, // 1 Hour of 'ban' / lockout 
-    message: 'Too many requests' // message to send
 });
 
 app.use(xss());

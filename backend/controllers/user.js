@@ -41,7 +41,7 @@ exports.signup = (req, res, next) => {
             })
         }); 
     }); 
-} 
+}
 
 exports.login = (req, res, next) => {
     const user = req.body

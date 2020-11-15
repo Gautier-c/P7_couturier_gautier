@@ -21,11 +21,10 @@ const Signup = () => (
 				window.location = "/";
 			})
 			.catch(error => {
-				alert({ error });
+				alert({ message : 'Email déjà existant' });
 			});
 
       setTimeout(() => {
-        console.log("Logging in", values);
         setSubmitting(false);
       }, 500);
 	}}
@@ -86,7 +85,7 @@ const Signup = () => (
 				value={values.firstname}
 				onChange={handleChange}
 				onBlur={handleBlur}
-				classfirstname={errors.firstname && touched.firstname && "error"}
+				className={errors.firstname && touched.firstname && "error"}
 				/>
 				{errors.firstname && touched.firstname && (
 				<div className="input-feedback">{errors.firstname}</div>
