@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 11 nov. 2020 à 15:56
+-- Généré le : Dim 15 nov. 2020 à 15:49
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.2.34
 
@@ -42,12 +42,9 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `authorname`, `authorfirstname`, `authorid`, `publicationid`, `commentary`, `date`) VALUES
-(62, 'Célair', 'Jacques', 13, 71, 'Vive Batman !!', '2020-11-11 15:49:29'),
-(64, 'Caman', 'Medhi', 15, 71, 'Je suis team Superman.', '2020-11-11 15:50:37'),
-(67, 'Caman', 'Medhi', 15, 74, 'Ah quand même !', '2020-11-11 15:54:12'),
-(68, 'Caman', 'Medhi', 15, 75, 'Et sans colorants !!!', '2020-11-11 15:54:44'),
-(69, 'Freichi', 'Sarah', 14, 75, 'Ca donne faim !', '2020-11-11 15:55:04'),
-(70, 'Freichi', 'Sarah', 14, 74, 'En rouge c\'est plus jolie.', '2020-11-11 15:55:45');
+(73, 'Petit', 'Michel', 51, 106, 'Super !', '2020-11-15 15:45:53'),
+(74, 'Dubois', 'Nicolas', 52, 107, 'SUPERMAN !!!!', '2020-11-15 15:47:14'),
+(75, 'Dubois', 'Nicolas', 52, 106, 'TOP !', '2020-11-15 15:47:25');
 
 -- --------------------------------------------------------
 
@@ -70,9 +67,9 @@ CREATE TABLE `publications` (
 --
 
 INSERT INTO `publications` (`id`, `authorname`, `authorfirstname`, `authorid`, `title`, `attachment`, `date`) VALUES
-(71, 'Freichi', 'Sarah', 14, 'Mon personnage de fiction préféré !! Et vous c\'est lequel ?', 'Batman.jpg1605106121615.jpg', '2020-11-11 15:48:41'),
-(74, 'Célair', 'Jacques', 13, 'La voiture de mes rêves :', 'Voiture.jpg1605106416750.jpg', '2020-11-11 15:53:36'),
-(75, 'Caman', 'Medhi', 15, 'La dernière sauce que j\'ai créée !', 'téléchargement_(2).jpg1605106470412.jpg', '2020-11-11 15:54:30');
+(106, 'Dupont', 'Jean', 50, 'Voici une photo de mes dernières vacances :', 'Vacances.jpg1605451474583.jpg', '2020-11-15 15:44:34'),
+(107, 'Petit', 'Michel', 51, 'Mon personnage de fiction préféré !! Et vous c\'est lequel ?', 'Batman.jpg1605451566126.jpg', '2020-11-15 15:46:06'),
+(109, 'Dubois', 'Nicolas', 52, 'La voiture de mes rêves :', 'Voiture.jpg1605451695177.jpg', '2020-11-15 15:48:15');
 
 -- --------------------------------------------------------
 
@@ -86,8 +83,6 @@ CREATE TABLE `users` (
   `password` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `firstname` varchar(255) DEFAULT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `updatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -95,12 +90,11 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `name`, `firstname`, `createdAt`, `updatedAt`, `role`) VALUES
-(8, 'admin@admin.com', '$2b$10$MPx7UEXcXYDGaitjNgRvf.sjo93HyGrayf7dnK7fwbg4f3yOK6/fW', 'Admin', 'Admin', '2020-11-03 17:56:28', '2020-11-03 17:56:28', 'admin'),
-(12, 'test2@email.com', '$2b$10$A.S.NU4z4A078f23QGYDr.XH0GJ3c7lb0slni1FdS39eLWz86Mj.2', 'Raque', 'Eric', '2020-11-06 12:05:17', '2020-11-06 12:05:17', 'user'),
-(13, 'test3@email.com', '$2b$10$diFz77ULcdiMWR5MyJ6Rm.XMOcwAGAOzN4JLrbY9SQI31dsG17vbu', 'Célair', 'Jacques', '2020-11-06 12:06:25', '2020-11-06 12:06:25', 'user'),
-(14, 'test@email.com', '$2b$10$p6Pk3IQnoHVcDQumuKcUWeaAceE7YYdtM0tmVIs8q9Q4D6lJwe9xa', 'Freichi', 'Sarah', '2020-11-06 12:07:26', '2020-11-06 12:07:26', 'user'),
-(15, 'test4@email.com', '$2b$10$LbB6QbDhQGsAk2BV/GOytu4DS/xq8kyxYOwXu1LIgFLokN/meD4Ge', 'Caman', 'Medhi', '2020-11-06 12:08:09', '2020-11-06 12:08:09', 'user');
+INSERT INTO `users` (`id`, `email`, `password`, `name`, `firstname`, `role`) VALUES
+(8, 'admin@admin.com', '$2b$10$MPx7UEXcXYDGaitjNgRvf.sjo93HyGrayf7dnK7fwbg4f3yOK6/fW', 'Admin', 'Admin', 'admin'),
+(50, 'test@email.com', '$2b$10$VRFDqBTZK86gEnpj8HpRb.KY5zkdmR.05yGKDsMgBB9PBRx03r.E2', 'Dupont', 'Jean', 'user'),
+(51, 'test2@email.com', '$2b$10$qqpaepIrI3S.bmSP4IPVDeew37IsIIa5anWKhq322CKg9pLok6DMO', 'Petit', 'Michel', 'user'),
+(52, 'test3@email.com', '$2b$10$b82ur/YmKT3HBEu1YS6N5OfcuOLpMPg7wmzkU46P6prdotMgUnQYW', 'Dubois', 'Nicolas', 'user');
 
 --
 -- Index pour les tables déchargées
@@ -135,19 +129,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT pour la table `publications`
 --
 ALTER TABLE `publications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- Contraintes pour les tables déchargées
