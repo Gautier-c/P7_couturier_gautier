@@ -15,6 +15,6 @@
 Une nouvelle page sur votre navigateur doit s'ouvrir sur le port :4200.
 Si rien ne passe allez sur ce lien : http://localhost:4200/
 
-*Compte admin :
-email : admin@admin.com
+*Compte admin :  
+email : admin@admin.com  
 password : admin123*
